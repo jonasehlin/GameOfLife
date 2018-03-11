@@ -85,5 +85,26 @@ namespace GameOfLife.Tests
 			}
 			Assert.AreEqual(100, world.Age);
 		}
+
+		[TestMethod]
+		public void BlinkerTest()
+		{
+			var world = new World();
+			world[0, -1] = true;
+			world[0, 0] = true;
+			world[0, 1] = true;
+
+			world.NextGeneration();
+			Assert.AreEqual(3, world.Count);
+			Assert.IsTrue(world[-1, 0]);
+			Assert.IsTrue(world[0, 0]);
+			Assert.IsTrue(world[1, 0]);
+
+			world.NextGeneration();
+			Assert.AreEqual(3, world.Count);
+			Assert.IsTrue(world[0, -1]);
+			Assert.IsTrue(world[0, 0]);
+			Assert.IsTrue(world[0, 1]);
+		}
 	}
 }
