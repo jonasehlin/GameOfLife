@@ -15,5 +15,10 @@
 		{
 			return new Coordinate(X + dx, Y + dy);
 		}
+
+		public override string ToString()
+		{
+			return $"X = {X}, Y = {Y}";
+		}
 	}
 }
