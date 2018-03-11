@@ -7,8 +7,8 @@ namespace GameOfLife.Desktop
 {
 	public partial class WorldView : Control
 	{
-		private World _world;
-		private float _cellSize;
+		private World _world = new World();
+		private float _cellSize = 10.0f;
 		private Coordinate _topLeft;
 
 		public Coordinate TopLeft
@@ -52,20 +52,28 @@ namespace GameOfLife.Desktop
 		public WorldView()
 		{
 			InitializeComponent();
+		}
 
-			_world = new World();
-
-			_world[10, 10] = true;
-			_world[10, 11] = true;
-			_world[10, 12] = true;
-			_world[11, 12] = true;
-			_world[12, 12] = true;
-			_world[12, 10] = true;
-			_world[11, 10] = true;
-
-			CellSize = 10.0f;
-
+		public void Start()
+		{
 			_worldTimer.Start();
+		}
+
+		public void Step()
+		{
+			_world.NextGeneration();
+			Invalidate();
+		}
+
+		public void Stop()
+		{
+			_worldTimer.Stop();
+		}
+
+		public void Clear()
+		{
+			_world.Reset();
+			Invalidate();
 		}
 
 		protected override void OnPaint(PaintEventArgs pe)
@@ -115,13 +123,13 @@ namespace GameOfLife.Desktop
 
 		private void WorldView_MouseDown(object sender, MouseEventArgs e)
 		{
-			if (e.Button == MouseButtons.Left)
+			if (e.Button.HasFlag(MouseButtons.Left))
 			{
 				var coordinate = ToWorldCoordinate(e.Location);
 				_world[coordinate] = !_world[coordinate];
 				Invalidate();
 			}
-			else if (e.Button == MouseButtons.Right)
+			else if (e.Button.HasFlag(MouseButtons.Right))
 			{
 				_startTopLeft = TopLeft;
 				_startMove = e.Location;
@@ -132,7 +140,6 @@ namespace GameOfLife.Desktop
 		{
 			if (_startMove.HasValue && e.Button.HasFlag(MouseButtons.Right))
 			{
-				// Moving
 				MoveView(e.Location);
 			}
 		}
