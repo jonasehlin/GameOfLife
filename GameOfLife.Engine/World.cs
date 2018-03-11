@@ -4,7 +4,7 @@ namespace GameOfLife.Engine
 {
 	public class World
 	{
-		SortedDictionary<int, SortedDictionary<int, bool>> _cells = new SortedDictionary<int, SortedDictionary<int, bool>>();
+		Dictionary<int, Dictionary<int, bool>> _cells = new Dictionary<int, Dictionary<int, bool>>();
 
 		public int Age { get; private set; }
 
@@ -12,7 +12,7 @@ namespace GameOfLife.Engine
 
 		public bool GetCell(int x, int y)
 		{
-			if (_cells.TryGetValue(x, out SortedDictionary<int, bool> xCells))
+			if (_cells.TryGetValue(x, out Dictionary<int, bool> xCells))
 			{
 				if (xCells.TryGetValue(y, out bool cell))
 				{
@@ -25,9 +25,9 @@ namespace GameOfLife.Engine
 
 		public void SetCell(int x, int y, bool value)
 		{
-			if (!_cells.TryGetValue(x, out SortedDictionary<int, bool> xCells))
+			if (!_cells.TryGetValue(x, out Dictionary<int, bool> xCells))
 			{
-				_cells[x] = xCells = new SortedDictionary<int, bool>();
+				_cells[x] = xCells = new Dictionary<int, bool>();
 			}
 
 			if (value)
