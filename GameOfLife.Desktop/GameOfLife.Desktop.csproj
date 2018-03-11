@@ -78,5 +78,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameOfLife.Engine\GameOfLife.Engine.csproj">
+      <Project>{f4c01f69-915d-4d8c-b059-a85294b287fb}</Project>
+      <Name>GameOfLife.Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
