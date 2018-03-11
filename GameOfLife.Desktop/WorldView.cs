@@ -17,12 +17,29 @@ namespace GameOfLife.Desktop
 		private float _cellSize;
 		private Coordinate _topLeft;
 
+		public Coordinate TopLeft
+		{
+			get { return _topLeft; }
+			set
+			{
+				if (_topLeft == value)
+					return;
+
+				_topLeft = value;
+				Invalidate();
+			}
+		}
+
 		public float CellSize
 		{
 			get { return _cellSize; }
 			set
 			{
+				if (_cellSize == value)
+					return;
+
 				_cellSize = value;
+				Invalidate();
 			}
 		}
 
