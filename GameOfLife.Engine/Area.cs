@@ -1,4 +1,6 @@
-﻿namespace GameOfLife.Engine
+﻿using System;
+
+namespace GameOfLife.Engine
 {
 	public struct Area
 	{
@@ -37,6 +39,16 @@
 		{
 			get { return X + Width; }
 			set { Width = value - X; }
+		}
+
+		public Coordinate Center
+		{
+			get
+			{
+				return new Coordinate(
+					(int)Math.Round((X + Width) / 2.0),
+					(int)Math.Round((Y + Height) / 2.0));
+			}
 		}
 
 		public override string ToString()

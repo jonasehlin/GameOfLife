@@ -129,7 +129,7 @@ namespace GameOfLife.Desktop
 		Coordinate? _startTopLeft;
 		Point? _startMove;
 
-		private void MoveView(Point location)
+		private void MouseMoveView(Point location)
 		{
 			int diffX = _startMove.Value.X - location.X;
 			int diffY = _startMove.Value.Y - location.Y;
@@ -166,7 +166,7 @@ namespace GameOfLife.Desktop
 			}
 			if (_startMove.HasValue && e.Button.HasFlag(MouseButtons.Right))
 			{
-				MoveView(e.Location);
+				MouseMoveView(e.Location);
 			}
 		}
 
@@ -174,7 +174,7 @@ namespace GameOfLife.Desktop
 		{
 			if (e.Button.HasFlag(MouseButtons.Right) && _startMove.HasValue)
 			{
-				MoveView(e.Location);
+				MouseMoveView(e.Location);
 				_startMove = null;
 				_startTopLeft = null;
 				Cursor = Cursors.Cross;
@@ -215,11 +215,21 @@ namespace GameOfLife.Desktop
 		{
 			if (e.Delta > 0)
 			{
+				Coordinate oldCenter = VisibleArea.Center;
 				CellSize = Math.Min(CellSize * 1.1f, 50);
+				Coordinate newCenter = VisibleArea.Center;
+				TopLeft = TopLeft.Offset(
+					oldCenter.X - newCenter.X,
+					oldCenter.Y - newCenter.Y);
 			}
 			else if (e.Delta < 0)
 			{
+				Coordinate oldCenter = VisibleArea.Center;
 				CellSize = Math.Max(CellSize * 0.9f, 1f);
+				Coordinate newCenter = VisibleArea.Center;
+				TopLeft = TopLeft.Offset(
+					oldCenter.X - newCenter.X,
+					oldCenter.Y - newCenter.Y);
 			}
 		}
 	}
