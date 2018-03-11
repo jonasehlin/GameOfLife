@@ -74,6 +74,7 @@
 			// 
 			// _pauseButton
 			// 
+			this._pauseButton.Enabled = false;
 			this._pauseButton.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this._pauseButton.Location = new System.Drawing.Point(85, 9);
 			this._pauseButton.Margin = new System.Windows.Forms.Padding(0);
@@ -86,6 +87,7 @@
 			// 
 			// _stopButton
 			// 
+			this._stopButton.Enabled = false;
 			this._stopButton.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this._stopButton.Location = new System.Drawing.Point(123, 9);
 			this._stopButton.Margin = new System.Windows.Forms.Padding(0);
