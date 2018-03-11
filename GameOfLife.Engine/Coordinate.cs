@@ -10,5 +10,10 @@
 			X = x;
 			Y = y;
 		}
+
+		public Coordinate Offset(int dx, int dy)
+		{
+			return new Coordinate(X + dx, Y + dy);
+		}
 	}
 }

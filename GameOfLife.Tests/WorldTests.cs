@@ -59,5 +59,31 @@ namespace GameOfLife.Tests
 			Assert.AreEqual(4, cells.Count());
 			Assert.AreEqual(6, world.Count);
 		}
+
+		[TestMethod]
+		public void BlockTest()
+		{
+			var world = new World();
+			world[0, 0] = true;
+			world[1, 0] = true;
+			world[1, 1] = true;
+			world[0, 1] = true;
+			Assert.AreEqual(4, world.Count);
+			Assert.IsTrue(world[0, 0]);
+			Assert.IsTrue(world[1, 0]);
+			Assert.IsTrue(world[1, 1]);
+			Assert.IsTrue(world[0, 1]);
+
+			for (int i = 0; i < 100; i++)
+			{
+				world.NextGeneration();
+				Assert.AreEqual(4, world.Count);
+				Assert.IsTrue(world[0, 0]);
+				Assert.IsTrue(world[1, 0]);
+				Assert.IsTrue(world[1, 1]);
+				Assert.IsTrue(world[0, 1]);
+			}
+			Assert.AreEqual(100, world.Age);
+		}
 	}
 }

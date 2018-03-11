@@ -1,23 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GameOfLife.Engine
 {
 	public class World
 	{
-		Dictionary<int, Dictionary<int, bool>> _cells = new Dictionary<int, Dictionary<int, bool>>();
+		Dictionary<Coordinate, bool> _cells = new Dictionary<Coordinate, bool>();
 
 		public int Age { get; private set; }
 
-		public int Count { get; set; }
+		public int Count
+		{
+			get { return _cells.Count; }
+		}
 
 		public bool GetCell(int x, int y)
 		{
-			if (_cells.TryGetValue(x, out Dictionary<int, bool> xCells))
+			return GetCell(new Coordinate(x, y));
+		}
+
+		public bool GetCell(Coordinate position)
+		{
+			if (_cells.TryGetValue(position, out bool cell))
 			{
-				if (xCells.TryGetValue(y, out bool cell))
-				{
-					return cell;
-				}
+				return cell;
 			}
 
 			return false;
@@ -25,37 +31,33 @@ namespace GameOfLife.Engine
 
 		public void SetCell(int x, int y, bool value)
 		{
-			if (!_cells.TryGetValue(x, out Dictionary<int, bool> xCells))
-			{
-				_cells[x] = xCells = new Dictionary<int, bool>();
-			}
+			SetCell(new Coordinate(x, y), value);
+		}
 
+		public void SetCell(Coordinate position, bool value)
+		{
 			if (value)
-			{
-				xCells[y] = value;
-				Count++;
-			}
+				_cells[position] = value;
 			else
-			{
-				xCells.Remove(y);
-				Count--;
-			}
+				_cells.Remove(position);
+		}
+
+		public bool this[Coordinate position]
+		{
+			get { return GetCell(position); }
+			set { SetCell(position, value); }
 		}
 
 		public bool this[int x, int y]
 		{
 			get { return GetCell(x, y); }
-			set
-			{
-				SetCell(x, y, value);
-			}
+			set { SetCell(x, y, value); }
 		}
 
 		public void Reset()
 		{
 			_cells.Clear();
 			Age = 0;
-			Count = 0;
 		}
 
 		public IEnumerable<Coordinate> GetCells(Area area)
@@ -65,9 +67,10 @@ namespace GameOfLife.Engine
 			{
 				for (int y = area.Top; y < area.Bottom; y++)
 				{
-					if (GetCell(x, y))
+					var position = new Coordinate(x, y);
+					if (GetCell(position))
 					{
-						cells.Add(new Coordinate(x, y));
+						cells.Add(position);
 					}
 				}
 			}
@@ -76,7 +79,38 @@ namespace GameOfLife.Engine
 
 		public void NextGeneration()
 		{
-			// TODO: Advance one generation.
+			var live = new SortedDictionary<Coordinate, bool>();
+			var die = new List<Coordinate>();
+			foreach (var cell in _cells)
+			{
+				int neighbours = GetNeighbours(cell.Key);
+				if (neighbours < 2 || neighbours > 3)
+					die.Add(cell.Key);
+
+				//live[]
+				// TODO: Continue...
+			}
+
+			foreach (var cell in die)
+			{
+				this[cell] = false;
+			}
+
+			Age++;
+		}
+
+		private int GetNeighbours(Coordinate position)
+		{
+			int count = 0;
+			if (GetCell(position.Offset(-1, -1))) count++;
+			if (GetCell(position.Offset(-1, 0))) count++;
+			if (GetCell(position.Offset(-1, 1))) count++;
+			if (GetCell(position.Offset(0, -1))) count++;
+			if (GetCell(position.Offset(0, 1))) count++;
+			if (GetCell(position.Offset(1, -1))) count++;
+			if (GetCell(position.Offset(1, 0))) count++;
+			if (GetCell(position.Offset(1, 1))) count++;
+			return count;
 		}
 	}
 }
