@@ -152,45 +152,8 @@ namespace GameOfLife.Desktop
 			int diffX = _startMove.Value.X - location.X;
 			int diffY = _startMove.Value.Y - location.Y;
 
-			int offsetX;
-			if (diffX > 0)
-			{
-				if (diffX < CellSize)
-					offsetX = 0;
-				else
-					offsetX = (int)(diffX / CellSize);
-			}
-			else if (diffX < 0)
-			{
-				if (-diffX < CellSize)
-					offsetX = 0;
-				else
-					offsetX = (int)(diffX / CellSize);
-			}
-			else
-			{
-				offsetX = 0;
-			}
-
-			int offsetY;
-			if (diffY > 0)
-			{
-				if (diffY < CellSize)
-					offsetY = 0;
-				else
-					offsetY = (int)(diffY / CellSize);
-			}
-			else if (diffY < 0)
-			{
-				if (-diffY < CellSize)
-					offsetY = 0;
-				else
-					offsetY = (int)(diffY / CellSize);
-			}
-			else
-			{
-				offsetY = 0;
-			}
+			int offsetX = (int)(diffX / CellSize);
+			int offsetY = (int)(diffY / CellSize);
 
 			TopLeft = _startTopLeft.Value.Offset(offsetX, offsetY);
 		}
