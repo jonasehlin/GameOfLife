@@ -35,6 +35,13 @@
 			// _worldTimer
 			// 
 			this._worldTimer.Tick += new System.EventHandler(this.WorldTimer_Tick);
+			// 
+			// WorldView
+			// 
+			this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.WorldView_KeyPress);
+			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.WorldView_MouseDown);
+			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.WorldView_MouseMove);
+			this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.WorldView_MouseUp);
 			this.ResumeLayout(false);
 
 		}

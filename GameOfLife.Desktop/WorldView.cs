@@ -1,12 +1,6 @@
 ﻿using GameOfLife.Engine;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GameOfLife.Desktop
@@ -84,8 +78,8 @@ namespace GameOfLife.Desktop
 		private RectangleF GetCellRectangle(Coordinate position)
 		{
 			return new RectangleF(
-				position.X * CellSize,
-				position.Y * CellSize,
+				(position.X - _topLeft.X) * CellSize,
+				(position.Y - _topLeft.Y) * CellSize,
 				CellSize,
 				CellSize);
 		}
@@ -107,6 +101,128 @@ namespace GameOfLife.Desktop
 		{
 			_world.NextGeneration();
 			Invalidate();
+		}
+
+		private Coordinate ToWorldCoordinate(Point p)
+		{
+			return new Coordinate(
+				_topLeft.X + (int)Math.Floor(p.X / CellSize),
+				_topLeft.Y + (int)Math.Floor(p.Y / CellSize));
+		}
+
+		Coordinate? _startTopLeft;
+		Point? _startMove;
+
+		private void WorldView_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (e.Button == MouseButtons.Left)
+			{
+				var coordinate = ToWorldCoordinate(e.Location);
+				_world[coordinate] = !_world[coordinate];
+				Invalidate();
+			}
+			else if (e.Button == MouseButtons.Right)
+			{
+				_startTopLeft = TopLeft;
+				_startMove = e.Location;
+			}
+		}
+
+		private void WorldView_MouseMove(object sender, MouseEventArgs e)
+		{
+			if (_startMove.HasValue && e.Button.HasFlag(MouseButtons.Right))
+			{
+				// Moving
+				MoveView(e.Location);
+			}
+		}
+
+		private void WorldView_MouseUp(object sender, MouseEventArgs e)
+		{
+			if (e.Button.HasFlag(MouseButtons.Right) && _startMove.HasValue)
+			{
+				MoveView(e.Location);
+				_startMove = null;
+				_startTopLeft = null;
+			}
+		}
+
+		private void MoveView(Point location)
+		{
+			int diffX = _startMove.Value.X - location.X;
+			int diffY = _startMove.Value.Y - location.Y;
+
+			int offsetX;
+			if (diffX > 0)
+			{
+				if (diffX < CellSize)
+					offsetX = 0;
+				else
+					offsetX = (int)(diffX / CellSize);
+			}
+			else if (diffX < 0)
+			{
+				if (-diffX < CellSize)
+					offsetX = 0;
+				else
+					offsetX = (int)(diffX / CellSize);
+			}
+			else
+			{
+				offsetX = 0;
+			}
+
+			int offsetY;
+			if (diffY > 0)
+			{
+				if (diffY < CellSize)
+					offsetY = 0;
+				else
+					offsetY = (int)(diffY / CellSize);
+			}
+			else if (diffY < 0)
+			{
+				if (-diffY < CellSize)
+					offsetY = 0;
+				else
+					offsetY = (int)(diffY / CellSize);
+			}
+			else
+			{
+				offsetY = 0;
+			}
+
+			TopLeft = _startTopLeft.Value.Offset(offsetX, offsetY);
+		}
+
+		private void WorldView_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			switch (e.KeyChar)
+			{
+				case 'l':
+				case 'L':
+					// Scroll right
+					TopLeft = new Coordinate(TopLeft.X - 1, TopLeft.Y);
+					break;
+
+				case 'j':
+				case 'J':
+					// Scroll left
+					TopLeft = new Coordinate(TopLeft.X + 1, TopLeft.Y);
+					break;
+
+				case 'i':
+				case 'I':
+					// Scroll up
+					TopLeft = new Coordinate(TopLeft.X, TopLeft.Y + 1);
+					break;
+
+				case 'k':
+				case 'K':
+					// Scroll down
+					TopLeft = new Coordinate(TopLeft.X, TopLeft.Y - 1);
+					break;
+			}
 		}
 	}
 }

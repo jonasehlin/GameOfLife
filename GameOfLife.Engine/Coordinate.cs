@@ -13,6 +13,11 @@ namespace GameOfLife.Engine
 			Y = y;
 		}
 
+		public Coordinate Offset(Coordinate offset)
+		{
+			return new Coordinate(X + offset.X, Y + offset.Y);
+		}
+
 		public Coordinate Offset(int dx, int dy)
 		{
 			return new Coordinate(X + dx, Y + dy);
@@ -51,7 +56,7 @@ namespace GameOfLife.Engine
 
 		public static bool operator ==(Coordinate a, Coordinate b)
 		{
-			return a.X == b.X && a.X == b.X;
+			return a.X == b.X && a.Y == b.Y;
 		}
 
 		public static bool operator !=(Coordinate a, Coordinate b)
