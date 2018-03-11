@@ -15,8 +15,8 @@ namespace GameOfLife.Desktop
 			_worldView.Start();
 			_playButton.Enabled = false;
 			_stepButton.Enabled = false;
-			_pauseButton.Enabled = true;
 			_stopButton.Enabled = true;
+			_clearButton.Enabled = true;
 		}
 
 		private void StepButton_Click(object sender, EventArgs e)
@@ -24,23 +24,23 @@ namespace GameOfLife.Desktop
 			_worldView.Step();
 		}
 
-		private void PauseButton_Click(object sender, EventArgs e)
+		private void StopButton_Click(object sender, EventArgs e)
 		{
 			_worldView.Stop();
 			_playButton.Enabled = true;
 			_stepButton.Enabled = true;
-			_pauseButton.Enabled = false;
 			_stopButton.Enabled = false;
+			_clearButton.Enabled = true;
 		}
 
-		private void StopButton_Click(object sender, EventArgs e)
+		private void ClearButton_Click(object sender, EventArgs e)
 		{
 			_worldView.Stop();
 			_worldView.Clear();
 			_playButton.Enabled = true;
 			_stepButton.Enabled = true;
-			_pauseButton.Enabled = false;
 			_stopButton.Enabled = false;
+			_clearButton.Enabled = true;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using GameOfLife.Engine;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -21,6 +22,8 @@ namespace GameOfLife.Desktop
 
 				_topLeft = value;
 				Invalidate();
+
+				Trace.WriteLine($"Top left: {_topLeft}");
 			}
 		}
 
@@ -34,6 +37,8 @@ namespace GameOfLife.Desktop
 
 				_cellSize = value;
 				Invalidate();
+
+				Trace.WriteLine($"Cell size: {_cellSize}");
 			}
 		}
 
@@ -53,6 +58,8 @@ namespace GameOfLife.Desktop
 		{
 			InitializeComponent();
 			DoubleBuffered = true;
+			Cursor = Cursors.Cross;
+			MouseWheel += WorldView_MouseWheel;
 		}
 
 		public void Start()
@@ -122,6 +129,17 @@ namespace GameOfLife.Desktop
 		Coordinate? _startTopLeft;
 		Point? _startMove;
 
+		private void MoveView(Point location)
+		{
+			int diffX = _startMove.Value.X - location.X;
+			int diffY = _startMove.Value.Y - location.Y;
+
+			int offsetX = (int)(diffX / CellSize);
+			int offsetY = (int)(diffY / CellSize);
+
+			TopLeft = _startTopLeft.Value.Offset(offsetX, offsetY);
+		}
+
 		private void WorldView_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (e.Button.HasFlag(MouseButtons.Left))
@@ -134,6 +152,7 @@ namespace GameOfLife.Desktop
 			{
 				_startTopLeft = TopLeft;
 				_startMove = e.Location;
+				Cursor = Cursors.Hand;
 			}
 		}
 
@@ -158,18 +177,8 @@ namespace GameOfLife.Desktop
 				MoveView(e.Location);
 				_startMove = null;
 				_startTopLeft = null;
+				Cursor = Cursors.Cross;
 			}
-		}
-
-		private void MoveView(Point location)
-		{
-			int diffX = _startMove.Value.X - location.X;
-			int diffY = _startMove.Value.Y - location.Y;
-
-			int offsetX = (int)(diffX / CellSize);
-			int offsetY = (int)(diffY / CellSize);
-
-			TopLeft = _startTopLeft.Value.Offset(offsetX, offsetY);
 		}
 
 		private void WorldView_KeyPress(object sender, KeyPressEventArgs e)
@@ -199,6 +208,18 @@ namespace GameOfLife.Desktop
 					// Scroll down
 					TopLeft = new Coordinate(TopLeft.X, TopLeft.Y - 1);
 					break;
+			}
+		}
+
+		private void WorldView_MouseWheel(object sender, MouseEventArgs e)
+		{
+			if (e.Delta > 0)
+			{
+				CellSize = Math.Min(CellSize * 1.1f, 50);
+			}
+			else if (e.Delta < 0)
+			{
+				CellSize = Math.Max(CellSize * 0.9f, 1f);
 			}
 		}
 	}
