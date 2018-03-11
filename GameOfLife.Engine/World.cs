@@ -79,16 +79,22 @@ namespace GameOfLife.Engine
 
 		public void NextGeneration()
 		{
-			var live = new SortedDictionary<Coordinate, bool>();
+			var live = new Dictionary<Coordinate, bool>();
 			var die = new List<Coordinate>();
 			foreach (var cell in _cells)
 			{
-				int neighbours = GetNeighbours(cell.Key);
+				int neighbours = GetNeighbourCount(cell.Key);
 				if (neighbours < 2 || neighbours > 3)
 					die.Add(cell.Key);
 
-				//live[]
-				// TODO: Continue...
+				AddIfShouldLive(cell.Key.Offset(-1, -1), live);
+				AddIfShouldLive(cell.Key.Offset(-1, 0), live);
+				AddIfShouldLive(cell.Key.Offset(-1, 1), live);
+				AddIfShouldLive(cell.Key.Offset(0, -1), live);
+				AddIfShouldLive(cell.Key.Offset(0, 1), live);
+				AddIfShouldLive(cell.Key.Offset(1, -1), live);
+				AddIfShouldLive(cell.Key.Offset(1, 0), live);
+				AddIfShouldLive(cell.Key.Offset(1, 1), live);
 			}
 
 			foreach (var cell in die)
@@ -96,10 +102,17 @@ namespace GameOfLife.Engine
 				this[cell] = false;
 			}
 
+			foreach (var cell in live)
+			{
+				_cells[cell.Key] = true;
+			}
+
 			Age++;
+
+			// TODO: Return how many cells died and how many born
 		}
 
-		private int GetNeighbours(Coordinate position)
+		private int GetNeighbourCount(Coordinate position)
 		{
 			int count = 0;
 			if (GetCell(position.Offset(-1, -1))) count++;
@@ -111,6 +124,16 @@ namespace GameOfLife.Engine
 			if (GetCell(position.Offset(1, 0))) count++;
 			if (GetCell(position.Offset(1, 1))) count++;
 			return count;
+		}
+
+		private void AddIfShouldLive(Coordinate cell, Dictionary<Coordinate, bool> live)
+		{
+			// Check if dead cell should live, if not already checked
+			if (GetCell(cell) == false && live.ContainsKey(cell) == false)
+			{
+				if (GetNeighbourCount(cell) == 3)
+					live[cell] = true;
+			}
 		}
 	}
 }
