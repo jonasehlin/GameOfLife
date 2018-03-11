@@ -52,6 +52,7 @@ namespace GameOfLife.Desktop
 		public WorldView()
 		{
 			InitializeComponent();
+			DoubleBuffered = true;
 		}
 
 		public void Start()
@@ -138,6 +139,12 @@ namespace GameOfLife.Desktop
 
 		private void WorldView_MouseMove(object sender, MouseEventArgs e)
 		{
+			if (e.Button.HasFlag(MouseButtons.Left))
+			{
+				var coordinate = ToWorldCoordinate(e.Location);
+				_world[coordinate] = true;
+				Invalidate();
+			}
 			if (_startMove.HasValue && e.Button.HasFlag(MouseButtons.Right))
 			{
 				MoveView(e.Location);
