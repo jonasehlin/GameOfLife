@@ -10,6 +10,9 @@ namespace GameOfLife.Desktop
 		private World _world = new World();
 		private float _cellSize = 10.0f;
 		private Coordinate _topLeft;
+		private Coordinate? _startTopLeft;
+		private Point? _startMove;
+		private bool _drawCell;
 
 		public Coordinate TopLeft
 		{
@@ -83,6 +86,11 @@ namespace GameOfLife.Desktop
 			OnAdvanced(new GenerationStatistics(0, 0));
 		}
 
+		public void SetTimerInterval(int interval)
+		{
+			_worldTimer.Interval = interval;
+		}
+
 		protected void OnAdvanced(GenerationStatistics generation)
 		{
 			Advanced?.Invoke(this, new WorldArgs(_world, generation));
@@ -135,9 +143,6 @@ namespace GameOfLife.Desktop
 				_topLeft.Y + (int)Math.Floor(p.Y / CellSize));
 		}
 
-		Coordinate? _startTopLeft;
-		Point? _startMove;
-
 		private void MouseMoveView(Point location)
 		{
 			int diffX = _startMove.Value.X - location.X;
@@ -154,7 +159,8 @@ namespace GameOfLife.Desktop
 			if (e.Button.HasFlag(MouseButtons.Left))
 			{
 				var coordinate = ToWorldCoordinate(e.Location);
-				_world[coordinate] = !_world[coordinate];
+				_drawCell = !_world[coordinate];
+				_world[coordinate] = _drawCell;
 				Invalidate();
 			}
 			else if (e.Button.HasFlag(MouseButtons.Right))
@@ -170,7 +176,7 @@ namespace GameOfLife.Desktop
 			if (e.Button.HasFlag(MouseButtons.Left))
 			{
 				var coordinate = ToWorldCoordinate(e.Location);
-				_world[coordinate] = true;
+				_world[coordinate] = _drawCell;
 				Invalidate();
 			}
 			if (_startMove.HasValue && e.Button.HasFlag(MouseButtons.Right))
