@@ -5,9 +5,22 @@ namespace GameOfLife.Desktop
 {
 	public partial class MainForm : Form
 	{
+		private int? _stableAge;
+		private SpeedStep[] _speeds = new[]
+		{
+			new SpeedStep("Slowest", 500),
+			new SpeedStep("Slow", 250),
+			new SpeedStep("Normal", 100),
+			new SpeedStep("Fast", 50),
+			new SpeedStep("Maximum", 1),
+		};
+
 		public MainForm()
 		{
 			InitializeComponent();
+
+			_speedToolStripComboBox.ComboBox.DataSource = _speeds;
+			_speedToolStripComboBox.ComboBox.SelectedIndex = 2;
 		}
 
 		private void PlayButton_Click(object sender, EventArgs e)
@@ -40,8 +53,6 @@ namespace GameOfLife.Desktop
 			_stopToolStripButton.Enabled = false;
 		}
 
-		int? _stableAge;
-
 		private void WorldView_Advanced(object sender, WorldArgs e)
 		{
 			_ageToolStripLabel.Text = $"Age: {e.World.Age}";
@@ -55,7 +66,7 @@ namespace GameOfLife.Desktop
 				if (_stableAge == null)
 					_stableAge = e.World.Age;
 
-				 text = $"Stable since age: {_stableAge.Value}";
+				text = $"Stable since age: {_stableAge.Value}";
 			}
 			else if (e.Generation.CellsBorn > e.Generation.CellsDied)
 			{
@@ -68,6 +79,12 @@ namespace GameOfLife.Desktop
 				_stableAge = null;
 			}
 			_mainToolStripStatusLabel.Text = text;
+		}
+
+		private void SpeedToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			var speedStep = (SpeedStep)_speedToolStripComboBox.ComboBox.SelectedItem;
+			_worldView.SetTimerInterval(speedStep.Speed);
 		}
 	}
 }

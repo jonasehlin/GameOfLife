@@ -33,6 +33,7 @@
 			this._mainToolStripContainer = new System.Windows.Forms.ToolStripContainer();
 			this._mainStatusStrip = new System.Windows.Forms.StatusStrip();
 			this._mainStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this._mainToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this._worldView = new GameOfLife.Desktop.WorldView();
 			this._statisticsToolStrip = new System.Windows.Forms.ToolStrip();
 			this._ageToolStripLabel = new System.Windows.Forms.ToolStripLabel();
@@ -44,7 +45,8 @@
 			this._stepToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this._stopToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this._resetToolStripButton = new System.Windows.Forms.ToolStripButton();
-			this._mainToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this._speedToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
 			this._mainToolStripContainer.BottomToolStripPanel.SuspendLayout();
 			this._mainToolStripContainer.ContentPanel.SuspendLayout();
 			this._mainToolStripContainer.LeftToolStripPanel.SuspendLayout();
@@ -97,6 +99,12 @@
 			// 
 			this._mainStripStatusLabel.Name = "_mainStripStatusLabel";
 			this._mainStripStatusLabel.Size = new System.Drawing.Size(0, 17);
+			// 
+			// _mainToolStripStatusLabel
+			// 
+			this._mainToolStripStatusLabel.Name = "_mainToolStripStatusLabel";
+			this._mainToolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
+			this._mainToolStripStatusLabel.Text = "Stable";
 			// 
 			// _worldView
 			// 
@@ -162,10 +170,12 @@
             this._playToolStripButton,
             this._stepToolStripButton,
             this._stopToolStripButton,
-            this._resetToolStripButton});
+            this._resetToolStripButton,
+            this.toolStripSeparator1,
+            this._speedToolStripComboBox});
 			this._mainToolStrip.Location = new System.Drawing.Point(3, 0);
 			this._mainToolStrip.Name = "_mainToolStrip";
-			this._mainToolStrip.Size = new System.Drawing.Size(106, 25);
+			this._mainToolStrip.Size = new System.Drawing.Size(233, 25);
 			this._mainToolStrip.TabIndex = 0;
 			// 
 			// _playToolStripButton
@@ -183,8 +193,8 @@
 			this._stepToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this._stepToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this._stepToolStripButton.Name = "_stepToolStripButton";
-			this._stepToolStripButton.Size = new System.Drawing.Size(25, 22);
-			this._stepToolStripButton.Text = "I>I";
+			this._stepToolStripButton.Size = new System.Drawing.Size(23, 22);
+			this._stepToolStripButton.Text = "⏯";
 			this._stepToolStripButton.ToolTipText = "Advance one generation";
 			this._stepToolStripButton.Click += new System.EventHandler(this.StepButton_Click);
 			// 
@@ -209,11 +219,22 @@
 			this._resetToolStripButton.ToolTipText = "Remove all cells and stop simulation";
 			this._resetToolStripButton.Click += new System.EventHandler(this.ClearButton_Click);
 			// 
-			// _mainToolStripStatusLabel
+			// toolStripSeparator1
 			// 
-			this._mainToolStripStatusLabel.Name = "_mainToolStripStatusLabel";
-			this._mainToolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
-			this._mainToolStripStatusLabel.Text = "Stable";
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// _speedToolStripComboBox
+			// 
+			this._speedToolStripComboBox.AutoSize = false;
+			this._speedToolStripComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this._speedToolStripComboBox.Items.AddRange(new object[] {
+            "1",
+            "10"});
+			this._speedToolStripComboBox.Name = "_speedToolStripComboBox";
+			this._speedToolStripComboBox.Size = new System.Drawing.Size(90, 23);
+			this._speedToolStripComboBox.ToolTipText = "Speed";
+			this._speedToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.SpeedToolStripComboBox_SelectedIndexChanged);
 			// 
 			// MainForm
 			// 
@@ -259,6 +280,8 @@
 		private System.Windows.Forms.ToolStripLabel _diedToolStripLabel;
 		private System.Windows.Forms.ToolStripStatusLabel _mainStripStatusLabel;
 		private System.Windows.Forms.ToolStripStatusLabel _mainToolStripStatusLabel;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripComboBox _speedToolStripComboBox;
 	}
 }
 
