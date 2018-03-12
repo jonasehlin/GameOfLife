@@ -37,10 +37,11 @@ namespace GameOfLife.Desktop
 
 				_cellSize = value;
 				Invalidate();
+				OnCellSizeChanged();
 			}
 		}
 
-		private Area VisibleArea
+		public Area VisibleArea
 		{
 			get
 			{
@@ -53,6 +54,8 @@ namespace GameOfLife.Desktop
 		}
 
 		public event EventHandler<WorldArgs> Advanced;
+
+		public event EventHandler CellSizeChanged;
 
 		public WorldView()
 		{
@@ -91,9 +94,24 @@ namespace GameOfLife.Desktop
 			_worldTimer.Interval = interval;
 		}
 
+		public void ZoomTowards(float newCellSize, Point location)
+		{
+			Coordinate oldCoordinate = ToWorldCoordinate(location);
+			CellSize = newCellSize;
+			Coordinate newCoordinate = ToWorldCoordinate(location);
+			TopLeft = TopLeft.Offset(
+				oldCoordinate.X - newCoordinate.X,
+				oldCoordinate.Y - newCoordinate.Y);
+		}
+
 		protected void OnAdvanced(GenerationStatistics generation)
 		{
 			Advanced?.Invoke(this, new WorldArgs(_world, generation));
+		}
+
+		protected void OnCellSizeChanged()
+		{
+			CellSizeChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		protected override void OnPaint(PaintEventArgs pe)
@@ -230,21 +248,11 @@ namespace GameOfLife.Desktop
 		{
 			if (e.Delta > 0)
 			{
-				Coordinate oldCoordinate = ToWorldCoordinate(e.Location);
-				CellSize = Math.Min(CellSize * 1.1f, 50);
-				Coordinate newCoordinate = ToWorldCoordinate(e.Location);
-				TopLeft = TopLeft.Offset(
-					oldCoordinate.X - newCoordinate.X,
-					oldCoordinate.Y - newCoordinate.Y);
+				ZoomTowards(Math.Min(CellSize * 1.1f, 50), e.Location);
 			}
 			else if (e.Delta < 0)
 			{
-				Coordinate oldCoordinate = ToWorldCoordinate(e.Location);
-				CellSize = Math.Max(CellSize * 0.9f, 1f);
-				Coordinate newCoordinate = ToWorldCoordinate(e.Location);
-				TopLeft = TopLeft.Offset(
-					oldCoordinate.X - newCoordinate.X,
-					oldCoordinate.Y - newCoordinate.Y);
+				ZoomTowards(Math.Max(CellSize * 0.9f, 1f), e.Location);
 			}
 		}
 	}

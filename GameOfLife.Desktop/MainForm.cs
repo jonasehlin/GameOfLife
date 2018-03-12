@@ -6,13 +6,21 @@ namespace GameOfLife.Desktop
 	public partial class MainForm : Form
 	{
 		private int? _stableAge;
-		private SpeedStep[] _speeds = new[]
+		private ComboItem<int>[] _speeds = new[]
 		{
-			new SpeedStep("Slowest", 500),
-			new SpeedStep("Slow", 250),
-			new SpeedStep("Normal", 100),
-			new SpeedStep("Fast", 50),
-			new SpeedStep("Maximum", 1),
+			new ComboItem<int>("Slowest", 500),
+			new ComboItem<int>("Slow", 250),
+			new ComboItem<int>("Normal", 100),
+			new ComboItem<int>("Fast", 50),
+			new ComboItem<int>("Fastest", 1),
+		};
+		private ComboItem<float>[] _zoomFactors = new[]
+		{
+			new ComboItem<float>("1", 1),
+			new ComboItem<float>("5", 5),
+			new ComboItem<float>("10", 10),
+			new ComboItem<float>("25", 25),
+			new ComboItem<float>("50", 50),
 		};
 
 		public MainForm()
@@ -21,6 +29,9 @@ namespace GameOfLife.Desktop
 
 			_speedToolStripComboBox.ComboBox.DataSource = _speeds;
 			_speedToolStripComboBox.ComboBox.SelectedIndex = 2;
+
+			_zoomToolStripComboBox.ComboBox.DataSource = _zoomFactors;
+			_zoomToolStripComboBox.ComboBox.SelectedIndex = 2;
 		}
 
 		private void PlayButton_Click(object sender, EventArgs e)
@@ -83,8 +94,21 @@ namespace GameOfLife.Desktop
 
 		private void SpeedToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			var speedStep = (SpeedStep)_speedToolStripComboBox.ComboBox.SelectedItem;
-			_worldView.SetTimerInterval(speedStep.Speed);
+			var speedStep = (ComboItem<int>)_speedToolStripComboBox.ComboBox.SelectedItem;
+			_worldView.SetTimerInterval(speedStep.Value);
+		}
+
+		private void ZoomToolStripComboBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			var zoomFactor = (ComboItem<float>)_zoomToolStripComboBox.ComboBox.SelectedItem;
+			_worldView.ZoomTowards(zoomFactor.Value, _worldView.ClientRectangle.Center());
+		}
+
+		private void WorldView_CellSizeChanged(object sender, EventArgs e)
+		{
+			//var zoomFactor = _zoomFactors.Single(z => z.Value == _worldView.CellSize);
+			// TODO: Disconnect event handler for Zoom selected...
+			_zoomToolStripComboBox.ComboBox.Text = _worldView.CellSize.ToString("0.#");
 		}
 	}
 }

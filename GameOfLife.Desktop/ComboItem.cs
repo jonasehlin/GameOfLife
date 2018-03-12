@@ -1,18 +1,18 @@
 ﻿namespace GameOfLife.Desktop
 {
-	class SpeedStep
+	class ComboItem<TValue>
 	{
 		public string Text { get; set; }
-		public int Speed { get; set; }
+		public TValue Value { get; set; }
 
-		public SpeedStep()
+		public ComboItem()
 		{
 		}
 
-		public SpeedStep(string text, int speed)
+		public ComboItem(string text, TValue value)
 		{
 			Text = text;
-			Speed = speed;
+			Value = value;
 		}
 
 		public override string ToString()

@@ -47,6 +47,7 @@
 			this._resetToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this._speedToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+			this._zoomToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
 			this._mainToolStripContainer.BottomToolStripPanel.SuspendLayout();
 			this._mainToolStripContainer.ContentPanel.SuspendLayout();
 			this._mainToolStripContainer.LeftToolStripPanel.SuspendLayout();
@@ -118,6 +119,7 @@
 			this._worldView.Size = new System.Drawing.Size(805, 505);
 			this._worldView.TabIndex = 4;
 			this._worldView.Advanced += new System.EventHandler<GameOfLife.Desktop.WorldArgs>(this.WorldView_Advanced);
+			this._worldView.CellSizeChanged += new System.EventHandler(this.WorldView_CellSizeChanged);
 			// 
 			// _statisticsToolStrip
 			// 
@@ -172,10 +174,11 @@
             this._stopToolStripButton,
             this._resetToolStripButton,
             this.toolStripSeparator1,
-            this._speedToolStripComboBox});
+            this._speedToolStripComboBox,
+            this._zoomToolStripComboBox});
 			this._mainToolStrip.Location = new System.Drawing.Point(3, 0);
 			this._mainToolStrip.Name = "_mainToolStrip";
-			this._mainToolStrip.Size = new System.Drawing.Size(233, 25);
+			this._mainToolStrip.Size = new System.Drawing.Size(287, 25);
 			this._mainToolStrip.TabIndex = 0;
 			// 
 			// _playToolStripButton
@@ -233,8 +236,16 @@
             "10"});
 			this._speedToolStripComboBox.Name = "_speedToolStripComboBox";
 			this._speedToolStripComboBox.Size = new System.Drawing.Size(90, 23);
-			this._speedToolStripComboBox.ToolTipText = "Speed";
+			this._speedToolStripComboBox.ToolTipText = "Speed of simulation";
 			this._speedToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.SpeedToolStripComboBox_SelectedIndexChanged);
+			// 
+			// _zoomToolStripComboBox
+			// 
+			this._zoomToolStripComboBox.AutoSize = false;
+			this._zoomToolStripComboBox.Name = "_zoomToolStripComboBox";
+			this._zoomToolStripComboBox.Size = new System.Drawing.Size(50, 23);
+			this._zoomToolStripComboBox.ToolTipText = "Zoom factor";
+			this._zoomToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.ZoomToolStripComboBox_SelectedIndexChanged);
 			// 
 			// MainForm
 			// 
@@ -282,6 +293,7 @@
 		private System.Windows.Forms.ToolStripStatusLabel _mainToolStripStatusLabel;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripComboBox _speedToolStripComboBox;
+		private System.Windows.Forms.ToolStripComboBox _zoomToolStripComboBox;
 	}
 }
 
