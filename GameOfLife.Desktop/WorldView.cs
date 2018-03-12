@@ -54,6 +54,8 @@ namespace GameOfLife.Desktop
 			}
 		}
 
+		public event EventHandler<WorldArgs> Advanced;
+
 		public WorldView()
 		{
 			InitializeComponent();
@@ -69,8 +71,9 @@ namespace GameOfLife.Desktop
 
 		public void Step()
 		{
-			_world.NextGeneration();
+			var stat = _world.NextGeneration();
 			Invalidate();
+			OnAdvanced(stat);
 		}
 
 		public void Stop()
@@ -82,6 +85,11 @@ namespace GameOfLife.Desktop
 		{
 			_world.Reset();
 			Invalidate();
+		}
+
+		protected void OnAdvanced(GenerationStatistics generation)
+		{
+			Advanced?.Invoke(this, new WorldArgs(_world, generation));
 		}
 
 		protected override void OnPaint(PaintEventArgs pe)
@@ -119,8 +127,9 @@ namespace GameOfLife.Desktop
 
 		private void WorldTimer_Tick(object sender, EventArgs e)
 		{
-			_world.NextGeneration();
+			var generationStatistics = _world.NextGeneration();
 			Invalidate();
+			OnAdvanced(generationStatistics);
 		}
 
 		private Coordinate ToWorldCoordinate(Point p)

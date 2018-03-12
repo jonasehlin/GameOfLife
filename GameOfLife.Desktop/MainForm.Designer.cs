@@ -32,16 +32,18 @@
 			this._mainToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this._mainToolStripContainer = new System.Windows.Forms.ToolStripContainer();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+			this._worldStatsToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this._worldView = new GameOfLife.Desktop.WorldView();
 			this._mainToolStrip = new System.Windows.Forms.ToolStrip();
 			this._playToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this._stepToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this._stopToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this._resetToolStripButton = new System.Windows.Forms.ToolStripButton();
-			this._worldView = new GameOfLife.Desktop.WorldView();
 			this._mainToolStripContainer.BottomToolStripPanel.SuspendLayout();
 			this._mainToolStripContainer.ContentPanel.SuspendLayout();
 			this._mainToolStripContainer.TopToolStripPanel.SuspendLayout();
 			this._mainToolStripContainer.SuspendLayout();
+			this.statusStrip1.SuspendLayout();
 			this._mainToolStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -70,10 +72,30 @@
 			// statusStrip1
 			// 
 			this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
+			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._worldStatsToolStripStatusLabel});
 			this.statusStrip1.Location = new System.Drawing.Point(0, 0);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(885, 22);
 			this.statusStrip1.TabIndex = 0;
+			// 
+			// _worldStatsToolStripStatusLabel
+			// 
+			this._worldStatsToolStripStatusLabel.Name = "_worldStatsToolStripStatusLabel";
+			this._worldStatsToolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
+			// 
+			// _worldView
+			// 
+			this._worldView.BackColor = System.Drawing.SystemColors.Window;
+			this._worldView.CellSize = 10F;
+			this._worldView.Cursor = System.Windows.Forms.Cursors.Cross;
+			this._worldView.Dock = System.Windows.Forms.DockStyle.Fill;
+			this._worldView.ForeColor = System.Drawing.Color.Blue;
+			this._worldView.Location = new System.Drawing.Point(0, 0);
+			this._worldView.Name = "_worldView";
+			this._worldView.Size = new System.Drawing.Size(885, 505);
+			this._worldView.TabIndex = 4;
+			this._worldView.Advanced += new System.EventHandler<GameOfLife.Desktop.WorldArgs>(this.WorldView_Advanced);
 			// 
 			// _mainToolStrip
 			// 
@@ -85,7 +107,7 @@
             this._resetToolStripButton});
 			this._mainToolStrip.Location = new System.Drawing.Point(3, 0);
 			this._mainToolStrip.Name = "_mainToolStrip";
-			this._mainToolStrip.Size = new System.Drawing.Size(137, 25);
+			this._mainToolStrip.Size = new System.Drawing.Size(106, 25);
 			this._mainToolStrip.TabIndex = 0;
 			// 
 			// _playToolStripButton
@@ -129,18 +151,6 @@
 			this._resetToolStripButton.ToolTipText = "Remove all cells and stop simulation";
 			this._resetToolStripButton.Click += new System.EventHandler(this.ClearButton_Click);
 			// 
-			// _worldView
-			// 
-			this._worldView.BackColor = System.Drawing.SystemColors.Window;
-			this._worldView.CellSize = 10F;
-			this._worldView.Cursor = System.Windows.Forms.Cursors.Cross;
-			this._worldView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this._worldView.ForeColor = System.Drawing.Color.Blue;
-			this._worldView.Location = new System.Drawing.Point(0, 0);
-			this._worldView.Name = "_worldView";
-			this._worldView.Size = new System.Drawing.Size(885, 505);
-			this._worldView.TabIndex = 4;
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -156,6 +166,8 @@
 			this._mainToolStripContainer.TopToolStripPanel.PerformLayout();
 			this._mainToolStripContainer.ResumeLayout(false);
 			this._mainToolStripContainer.PerformLayout();
+			this.statusStrip1.ResumeLayout(false);
+			this.statusStrip1.PerformLayout();
 			this._mainToolStrip.ResumeLayout(false);
 			this._mainToolStrip.PerformLayout();
 			this.ResumeLayout(false);
@@ -173,6 +185,7 @@
 		private System.Windows.Forms.ToolStripButton _stepToolStripButton;
 		private System.Windows.Forms.ToolStripButton _stopToolStripButton;
 		private System.Windows.Forms.ToolStripButton _resetToolStripButton;
+		private System.Windows.Forms.ToolStripStatusLabel _worldStatsToolStripStatusLabel;
 	}
 }
 

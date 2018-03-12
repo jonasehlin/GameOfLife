@@ -78,7 +78,7 @@ namespace GameOfLife.Engine
 			return cells;
 		}
 
-		public void NextGeneration()
+		public GenerationStatistics NextGeneration()
 		{
 			var live = new Dictionary<Coordinate, bool>();
 			var die = new List<Coordinate>();
@@ -110,7 +110,7 @@ namespace GameOfLife.Engine
 
 			Age++;
 
-			// TODO: Return how many cells died and how many born
+			return new GenerationStatistics(live.Count, die.Count);
 		}
 
 		private int GetNeighbourCount(Coordinate position)

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Area.cs" />
     <Compile Include="Coordinate.cs" />
+    <Compile Include="GenerationStatistics.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

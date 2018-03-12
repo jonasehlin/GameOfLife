@@ -39,5 +39,10 @@ namespace GameOfLife.Desktop
 			_stepToolStripButton.Enabled = true;
 			_stopToolStripButton.Enabled = false;
 		}
+
+		private void WorldView_Advanced(object sender, WorldArgs e)
+		{
+			_worldStatsToolStripStatusLabel.Text = $"Age = {e.World.Age}, Cells = {e.World.Count}, Born = {e.Generation.CellsBorn}, Died = {e.Generation.CellsDied}";
+		}
 	}
 }
