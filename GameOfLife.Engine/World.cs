@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace GameOfLife.Engine
 {
-	public class World
+	public class World : IEnumerable<Coordinate>
 	{
 		Dictionary<Coordinate, bool> _cells = new Dictionary<Coordinate, bool>();
 
@@ -134,6 +135,16 @@ namespace GameOfLife.Engine
 				if (GetNeighbourCount(cell) == 3)
 					live[cell] = true;
 			}
+		}
+
+		public IEnumerator<Coordinate> GetEnumerator()
+		{
+			return _cells.Keys.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return _cells.Keys.GetEnumerator();
 		}
 	}
 }

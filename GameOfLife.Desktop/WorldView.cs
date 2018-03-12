@@ -102,13 +102,17 @@ namespace GameOfLife.Desktop
 
 		private void DrawCells(Graphics gr)
 		{
-			var cells = _world.GetCells(VisibleArea);
-
+			var visibleArea = VisibleArea;
 			using (var brush = new SolidBrush(ForeColor))
 			{
-				foreach (var cell in cells)
+				int visibleCells = 0;
+				foreach (var cell in _world)
 				{
-					gr.FillRectangle(brush, GetCellRectangle(cell));
+					if (visibleArea.Contains(cell))
+					{
+						gr.FillRectangle(brush, GetCellRectangle(cell));
+						visibleCells++;
+					}
 				}
 			}
 		}

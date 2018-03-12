@@ -55,5 +55,11 @@ namespace GameOfLife.Engine
 		{
 			return $"X = {X}, Y = {Y}, Width = {Width}, Height = {Height}";
 		}
+
+		public bool Contains(Coordinate coordinate)
+		{
+			return coordinate.X >= X && coordinate.Y >= Y &&
+				coordinate.X <= Right && coordinate.Y <= Bottom;
+		}
 	}
 }
