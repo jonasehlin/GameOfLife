@@ -31,9 +31,14 @@
 			this.components = new System.ComponentModel.Container();
 			this._mainToolTip = new System.Windows.Forms.ToolTip(this.components);
 			this._mainToolStripContainer = new System.Windows.Forms.ToolStripContainer();
-			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-			this._worldStatsToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this._mainStatusStrip = new System.Windows.Forms.StatusStrip();
+			this._mainStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this._worldView = new GameOfLife.Desktop.WorldView();
+			this._statisticsToolStrip = new System.Windows.Forms.ToolStrip();
+			this._ageToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+			this._totalCellsToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+			this._bornToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+			this._diedToolStripLabel = new System.Windows.Forms.ToolStripLabel();
 			this._mainToolStrip = new System.Windows.Forms.ToolStrip();
 			this._playToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this._stepToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -41,9 +46,11 @@
 			this._resetToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this._mainToolStripContainer.BottomToolStripPanel.SuspendLayout();
 			this._mainToolStripContainer.ContentPanel.SuspendLayout();
+			this._mainToolStripContainer.LeftToolStripPanel.SuspendLayout();
 			this._mainToolStripContainer.TopToolStripPanel.SuspendLayout();
 			this._mainToolStripContainer.SuspendLayout();
-			this.statusStrip1.SuspendLayout();
+			this._mainStatusStrip.SuspendLayout();
+			this._statisticsToolStrip.SuspendLayout();
 			this._mainToolStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -52,13 +59,18 @@
 			// 
 			// _mainToolStripContainer.BottomToolStripPanel
 			// 
-			this._mainToolStripContainer.BottomToolStripPanel.Controls.Add(this.statusStrip1);
+			this._mainToolStripContainer.BottomToolStripPanel.Controls.Add(this._mainStatusStrip);
 			// 
 			// _mainToolStripContainer.ContentPanel
 			// 
 			this._mainToolStripContainer.ContentPanel.Controls.Add(this._worldView);
-			this._mainToolStripContainer.ContentPanel.Size = new System.Drawing.Size(885, 505);
+			this._mainToolStripContainer.ContentPanel.Size = new System.Drawing.Size(805, 505);
 			this._mainToolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			// 
+			// _mainToolStripContainer.LeftToolStripPanel
+			// 
+			this._mainToolStripContainer.LeftToolStripPanel.Controls.Add(this._statisticsToolStrip);
+			this._mainToolStripContainer.LeftToolStripPanel.MinimumSize = new System.Drawing.Size(80, 0);
 			this._mainToolStripContainer.Location = new System.Drawing.Point(0, 0);
 			this._mainToolStripContainer.Name = "_mainToolStripContainer";
 			this._mainToolStripContainer.Size = new System.Drawing.Size(885, 552);
@@ -69,20 +81,20 @@
 			// 
 			this._mainToolStripContainer.TopToolStripPanel.Controls.Add(this._mainToolStrip);
 			// 
-			// statusStrip1
+			// _mainStatusStrip
 			// 
-			this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
-			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._worldStatsToolStripStatusLabel});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 0);
-			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(885, 22);
-			this.statusStrip1.TabIndex = 0;
+			this._mainStatusStrip.Dock = System.Windows.Forms.DockStyle.None;
+			this._mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._mainStripStatusLabel});
+			this._mainStatusStrip.Location = new System.Drawing.Point(0, 0);
+			this._mainStatusStrip.Name = "_mainStatusStrip";
+			this._mainStatusStrip.Size = new System.Drawing.Size(885, 22);
+			this._mainStatusStrip.TabIndex = 0;
 			// 
-			// _worldStatsToolStripStatusLabel
+			// _mainStripStatusLabel
 			// 
-			this._worldStatsToolStripStatusLabel.Name = "_worldStatsToolStripStatusLabel";
-			this._worldStatsToolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
+			this._mainStripStatusLabel.Name = "_mainStripStatusLabel";
+			this._mainStripStatusLabel.Size = new System.Drawing.Size(0, 17);
 			// 
 			// _worldView
 			// 
@@ -93,9 +105,53 @@
 			this._worldView.ForeColor = System.Drawing.Color.Blue;
 			this._worldView.Location = new System.Drawing.Point(0, 0);
 			this._worldView.Name = "_worldView";
-			this._worldView.Size = new System.Drawing.Size(885, 505);
+			this._worldView.Size = new System.Drawing.Size(805, 505);
 			this._worldView.TabIndex = 4;
 			this._worldView.Advanced += new System.EventHandler<GameOfLife.Desktop.WorldArgs>(this.WorldView_Advanced);
+			// 
+			// _statisticsToolStrip
+			// 
+			this._statisticsToolStrip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this._statisticsToolStrip.AutoSize = false;
+			this._statisticsToolStrip.Dock = System.Windows.Forms.DockStyle.None;
+			this._statisticsToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._ageToolStripLabel,
+            this._totalCellsToolStripLabel,
+            this._bornToolStripLabel,
+            this._diedToolStripLabel});
+			this._statisticsToolStrip.Location = new System.Drawing.Point(0, 3);
+			this._statisticsToolStrip.Name = "_statisticsToolStrip";
+			this._statisticsToolStrip.Size = new System.Drawing.Size(77, 102);
+			this._statisticsToolStrip.TabIndex = 0;
+			// 
+			// _ageToolStripLabel
+			// 
+			this._ageToolStripLabel.Name = "_ageToolStripLabel";
+			this._ageToolStripLabel.Size = new System.Drawing.Size(75, 15);
+			this._ageToolStripLabel.Text = "Age: 0";
+			this._ageToolStripLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// _totalCellsToolStripLabel
+			// 
+			this._totalCellsToolStripLabel.Name = "_totalCellsToolStripLabel";
+			this._totalCellsToolStripLabel.Size = new System.Drawing.Size(75, 15);
+			this._totalCellsToolStripLabel.Text = "Cells: 0";
+			this._totalCellsToolStripLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// _bornToolStripLabel
+			// 
+			this._bornToolStripLabel.Name = "_bornToolStripLabel";
+			this._bornToolStripLabel.Size = new System.Drawing.Size(75, 15);
+			this._bornToolStripLabel.Text = "Born: 0";
+			this._bornToolStripLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// _diedToolStripLabel
+			// 
+			this._diedToolStripLabel.Name = "_diedToolStripLabel";
+			this._diedToolStripLabel.Size = new System.Drawing.Size(75, 15);
+			this._diedToolStripLabel.Text = "Died: 0";
+			this._diedToolStripLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// _mainToolStrip
 			// 
@@ -162,12 +218,15 @@
 			this._mainToolStripContainer.BottomToolStripPanel.ResumeLayout(false);
 			this._mainToolStripContainer.BottomToolStripPanel.PerformLayout();
 			this._mainToolStripContainer.ContentPanel.ResumeLayout(false);
+			this._mainToolStripContainer.LeftToolStripPanel.ResumeLayout(false);
 			this._mainToolStripContainer.TopToolStripPanel.ResumeLayout(false);
 			this._mainToolStripContainer.TopToolStripPanel.PerformLayout();
 			this._mainToolStripContainer.ResumeLayout(false);
 			this._mainToolStripContainer.PerformLayout();
-			this.statusStrip1.ResumeLayout(false);
-			this.statusStrip1.PerformLayout();
+			this._mainStatusStrip.ResumeLayout(false);
+			this._mainStatusStrip.PerformLayout();
+			this._statisticsToolStrip.ResumeLayout(false);
+			this._statisticsToolStrip.PerformLayout();
 			this._mainToolStrip.ResumeLayout(false);
 			this._mainToolStrip.PerformLayout();
 			this.ResumeLayout(false);
@@ -179,13 +238,18 @@
 		private WorldView _worldView;
 		private System.Windows.Forms.ToolTip _mainToolTip;
 		private System.Windows.Forms.ToolStripContainer _mainToolStripContainer;
-		private System.Windows.Forms.StatusStrip statusStrip1;
+		private System.Windows.Forms.StatusStrip _mainStatusStrip;
 		private System.Windows.Forms.ToolStrip _mainToolStrip;
 		private System.Windows.Forms.ToolStripButton _playToolStripButton;
 		private System.Windows.Forms.ToolStripButton _stepToolStripButton;
 		private System.Windows.Forms.ToolStripButton _stopToolStripButton;
 		private System.Windows.Forms.ToolStripButton _resetToolStripButton;
-		private System.Windows.Forms.ToolStripStatusLabel _worldStatsToolStripStatusLabel;
+		private System.Windows.Forms.ToolStrip _statisticsToolStrip;
+		private System.Windows.Forms.ToolStripLabel _totalCellsToolStripLabel;
+		private System.Windows.Forms.ToolStripLabel _ageToolStripLabel;
+		private System.Windows.Forms.ToolStripLabel _bornToolStripLabel;
+		private System.Windows.Forms.ToolStripLabel _diedToolStripLabel;
+		private System.Windows.Forms.ToolStripStatusLabel _mainStripStatusLabel;
 	}
 }
 

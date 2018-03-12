@@ -1,6 +1,5 @@
 ﻿using GameOfLife.Engine;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -22,8 +21,6 @@ namespace GameOfLife.Desktop
 
 				_topLeft = value;
 				Invalidate();
-
-				Trace.WriteLine($"Top left: {_topLeft}");
 			}
 		}
 
@@ -37,8 +34,6 @@ namespace GameOfLife.Desktop
 
 				_cellSize = value;
 				Invalidate();
-
-				Trace.WriteLine($"Cell size: {_cellSize}");
 			}
 		}
 
@@ -85,6 +80,7 @@ namespace GameOfLife.Desktop
 		{
 			_world.Reset();
 			Invalidate();
+			OnAdvanced(new GenerationStatistics(0, 0));
 		}
 
 		protected void OnAdvanced(GenerationStatistics generation)

@@ -42,7 +42,10 @@ namespace GameOfLife.Desktop
 
 		private void WorldView_Advanced(object sender, WorldArgs e)
 		{
-			_worldStatsToolStripStatusLabel.Text = $"Age = {e.World.Age}, Cells = {e.World.Count}, Born = {e.Generation.CellsBorn}, Died = {e.Generation.CellsDied}";
+			_ageToolStripLabel.Text = $"Age: {e.World.Age}";
+			_totalCellsToolStripLabel.Text = $"Cells: {e.World.Count}";
+			_bornToolStripLabel.Text = $"Born: {e.Generation.CellsBorn}";
+			_diedToolStripLabel.Text = $"Died: {e.Generation.CellsDied}";
 		}
 	}
 }
