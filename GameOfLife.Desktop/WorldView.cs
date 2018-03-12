@@ -215,21 +215,21 @@ namespace GameOfLife.Desktop
 		{
 			if (e.Delta > 0)
 			{
-				Coordinate oldCenter = VisibleArea.Center;
+				Coordinate oldCoordinate = ToWorldCoordinate(e.Location);
 				CellSize = Math.Min(CellSize * 1.1f, 50);
-				Coordinate newCenter = VisibleArea.Center;
+				Coordinate newCoordinate = ToWorldCoordinate(e.Location);
 				TopLeft = TopLeft.Offset(
-					oldCenter.X - newCenter.X,
-					oldCenter.Y - newCenter.Y);
+					oldCoordinate.X - newCoordinate.X,
+					oldCoordinate.Y - newCoordinate.Y);
 			}
 			else if (e.Delta < 0)
 			{
-				Coordinate oldCenter = VisibleArea.Center;
+				Coordinate oldCoordinate = ToWorldCoordinate(e.Location);
 				CellSize = Math.Max(CellSize * 0.9f, 1f);
-				Coordinate newCenter = VisibleArea.Center;
+				Coordinate newCoordinate = ToWorldCoordinate(e.Location);
 				TopLeft = TopLeft.Offset(
-					oldCenter.X - newCenter.X,
-					oldCenter.Y - newCenter.Y);
+					oldCoordinate.X - newCoordinate.X,
+					oldCoordinate.Y - newCoordinate.Y);
 			}
 		}
 	}
