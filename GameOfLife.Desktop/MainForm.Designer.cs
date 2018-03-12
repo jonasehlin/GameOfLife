@@ -44,6 +44,7 @@
 			this._stepToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this._stopToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this._resetToolStripButton = new System.Windows.Forms.ToolStripButton();
+			this._mainToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this._mainToolStripContainer.BottomToolStripPanel.SuspendLayout();
 			this._mainToolStripContainer.ContentPanel.SuspendLayout();
 			this._mainToolStripContainer.LeftToolStripPanel.SuspendLayout();
@@ -85,7 +86,8 @@
 			// 
 			this._mainStatusStrip.Dock = System.Windows.Forms.DockStyle.None;
 			this._mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._mainStripStatusLabel});
+            this._mainStripStatusLabel,
+            this._mainToolStripStatusLabel});
 			this._mainStatusStrip.Location = new System.Drawing.Point(0, 0);
 			this._mainStatusStrip.Name = "_mainStatusStrip";
 			this._mainStatusStrip.Size = new System.Drawing.Size(885, 22);
@@ -207,6 +209,12 @@
 			this._resetToolStripButton.ToolTipText = "Remove all cells and stop simulation";
 			this._resetToolStripButton.Click += new System.EventHandler(this.ClearButton_Click);
 			// 
+			// _mainToolStripStatusLabel
+			// 
+			this._mainToolStripStatusLabel.Name = "_mainToolStripStatusLabel";
+			this._mainToolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
+			this._mainToolStripStatusLabel.Text = "Stable";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -250,6 +258,7 @@
 		private System.Windows.Forms.ToolStripLabel _bornToolStripLabel;
 		private System.Windows.Forms.ToolStripLabel _diedToolStripLabel;
 		private System.Windows.Forms.ToolStripStatusLabel _mainStripStatusLabel;
+		private System.Windows.Forms.ToolStripStatusLabel _mainToolStripStatusLabel;
 	}
 }
 

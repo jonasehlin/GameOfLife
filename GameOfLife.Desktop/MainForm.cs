@@ -40,12 +40,34 @@ namespace GameOfLife.Desktop
 			_stopToolStripButton.Enabled = false;
 		}
 
+		int? _stableAge;
+
 		private void WorldView_Advanced(object sender, WorldArgs e)
 		{
 			_ageToolStripLabel.Text = $"Age: {e.World.Age}";
 			_totalCellsToolStripLabel.Text = $"Cells: {e.World.Count}";
 			_bornToolStripLabel.Text = $"Born: {e.Generation.CellsBorn}";
 			_diedToolStripLabel.Text = $"Died: {e.Generation.CellsDied}";
+
+			string text;
+			if (e.Generation.CellsBorn == e.Generation.CellsDied)
+			{
+				if (_stableAge == null)
+					_stableAge = e.World.Age;
+
+				 text = $"Stable since age: {_stableAge.Value}";
+			}
+			else if (e.Generation.CellsBorn > e.Generation.CellsDied)
+			{
+				text = "Growing";
+				_stableAge = null;
+			}
+			else
+			{
+				text = "Shrinking";
+				_stableAge = null;
+			}
+			_mainToolStripStatusLabel.Text = text;
 		}
 	}
 }
