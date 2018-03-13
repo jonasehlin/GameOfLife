@@ -39,7 +39,7 @@ namespace GameOfLife.Desktop
 			_worldView.Start();
 			_playToolStripButton.Enabled = false;
 			_stepToolStripButton.Enabled = false;
-			_stopToolStripButton.Enabled = true;
+			_pauseToolStripButton.Enabled = true;
 		}
 
 		private void StepButton_Click(object sender, EventArgs e)
@@ -47,12 +47,12 @@ namespace GameOfLife.Desktop
 			_worldView.Step();
 		}
 
-		private void StopButton_Click(object sender, EventArgs e)
+		private void PauseButton_Click(object sender, EventArgs e)
 		{
 			_worldView.Stop();
 			_playToolStripButton.Enabled = true;
 			_stepToolStripButton.Enabled = true;
-			_stopToolStripButton.Enabled = false;
+			_pauseToolStripButton.Enabled = false;
 		}
 
 		private void ClearButton_Click(object sender, EventArgs e)
@@ -61,7 +61,7 @@ namespace GameOfLife.Desktop
 			_worldView.Clear();
 			_playToolStripButton.Enabled = true;
 			_stepToolStripButton.Enabled = true;
-			_stopToolStripButton.Enabled = false;
+			_pauseToolStripButton.Enabled = false;
 		}
 
 		private void WorldView_Advanced(object sender, WorldArgs e)
@@ -106,7 +106,6 @@ namespace GameOfLife.Desktop
 
 		private void WorldView_CellSizeChanged(object sender, EventArgs e)
 		{
-			//var zoomFactor = _zoomFactors.Single(z => z.Value == _worldView.CellSize);
 			// TODO: Disconnect event handler for Zoom selected...
 			_zoomToolStripComboBox.ComboBox.Text = _worldView.CellSize.ToString("0.#");
 		}

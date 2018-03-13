@@ -43,7 +43,7 @@
 			this._mainToolStrip = new System.Windows.Forms.ToolStrip();
 			this._playToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this._stepToolStripButton = new System.Windows.Forms.ToolStripButton();
-			this._stopToolStripButton = new System.Windows.Forms.ToolStripButton();
+			this._pauseToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this._resetToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this._speedToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
@@ -171,14 +171,14 @@
 			this._mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._playToolStripButton,
             this._stepToolStripButton,
-            this._stopToolStripButton,
+            this._pauseToolStripButton,
             this._resetToolStripButton,
             this.toolStripSeparator1,
             this._speedToolStripComboBox,
             this._zoomToolStripComboBox});
 			this._mainToolStrip.Location = new System.Drawing.Point(3, 0);
 			this._mainToolStrip.Name = "_mainToolStrip";
-			this._mainToolStrip.Size = new System.Drawing.Size(287, 25);
+			this._mainToolStrip.Size = new System.Drawing.Size(285, 25);
 			this._mainToolStrip.TabIndex = 0;
 			// 
 			// _playToolStripButton
@@ -201,16 +201,16 @@
 			this._stepToolStripButton.ToolTipText = "Advance one generation";
 			this._stepToolStripButton.Click += new System.EventHandler(this.StepButton_Click);
 			// 
-			// _stopToolStripButton
+			// _pauseToolStripButton
 			// 
-			this._stopToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this._stopToolStripButton.Enabled = false;
-			this._stopToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this._stopToolStripButton.Name = "_stopToolStripButton";
-			this._stopToolStripButton.Size = new System.Drawing.Size(23, 22);
-			this._stopToolStripButton.Text = "■";
-			this._stopToolStripButton.ToolTipText = "Stop simulation";
-			this._stopToolStripButton.Click += new System.EventHandler(this.StopButton_Click);
+			this._pauseToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this._pauseToolStripButton.Enabled = false;
+			this._pauseToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this._pauseToolStripButton.Name = "_pauseToolStripButton";
+			this._pauseToolStripButton.Size = new System.Drawing.Size(23, 22);
+			this._pauseToolStripButton.Text = "❚❚";
+			this._pauseToolStripButton.ToolTipText = "Pause simulation";
+			this._pauseToolStripButton.Click += new System.EventHandler(this.PauseButton_Click);
 			// 
 			// _resetToolStripButton
 			// 
@@ -282,7 +282,7 @@
 		private System.Windows.Forms.ToolStrip _mainToolStrip;
 		private System.Windows.Forms.ToolStripButton _playToolStripButton;
 		private System.Windows.Forms.ToolStripButton _stepToolStripButton;
-		private System.Windows.Forms.ToolStripButton _stopToolStripButton;
+		private System.Windows.Forms.ToolStripButton _pauseToolStripButton;
 		private System.Windows.Forms.ToolStripButton _resetToolStripButton;
 		private System.Windows.Forms.ToolStrip _statisticsToolStrip;
 		private System.Windows.Forms.ToolStripLabel _totalCellsToolStripLabel;
