@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 namespace GameOfLife.Engine
 {
@@ -111,6 +112,28 @@ namespace GameOfLife.Engine
 			Age++;
 
 			return new GenerationStatistics(live.Count, die.Count);
+		}
+
+		public void Load(IEnumerable<string> lines)
+		{
+			foreach (var line in lines)
+			{
+				var values = line.Split(',');
+				int x = Convert.ToInt32(values[0].Trim());
+				int y = Convert.ToInt32(values[1].Trim());
+				_cells.Add(new Coordinate(x, y), true);
+			}
+		}
+
+		public void Save(TextWriter writer)
+		{
+			foreach (var cell in _cells)
+			{
+				if (cell.Value)
+				{
+					writer.WriteLine($"{cell.Key.X},{cell.Key.Y}");
+				}
+			}
 		}
 
 		private int GetNeighbourCount(Coordinate position)

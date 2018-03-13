@@ -40,6 +40,12 @@
 			this._totalCellsToolStripLabel = new System.Windows.Forms.ToolStripLabel();
 			this._bornToolStripLabel = new System.Windows.Forms.ToolStripLabel();
 			this._diedToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+			this._mainMenuStrip = new System.Windows.Forms.MenuStrip();
+			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this._loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this._saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this._exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this._mainToolStrip = new System.Windows.Forms.ToolStrip();
 			this._playToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this._stepToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -49,6 +55,8 @@
 			this._speedToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this._zoomToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+			this._openWorldFileDialog = new System.Windows.Forms.OpenFileDialog();
+			this._saveWorldFileDialog = new System.Windows.Forms.SaveFileDialog();
 			this._mainToolStripContainer.BottomToolStripPanel.SuspendLayout();
 			this._mainToolStripContainer.ContentPanel.SuspendLayout();
 			this._mainToolStripContainer.LeftToolStripPanel.SuspendLayout();
@@ -56,6 +64,7 @@
 			this._mainToolStripContainer.SuspendLayout();
 			this._mainStatusStrip.SuspendLayout();
 			this._statisticsToolStrip.SuspendLayout();
+			this._mainMenuStrip.SuspendLayout();
 			this._mainToolStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -69,7 +78,7 @@
 			// _mainToolStripContainer.ContentPanel
 			// 
 			this._mainToolStripContainer.ContentPanel.Controls.Add(this._worldView);
-			this._mainToolStripContainer.ContentPanel.Size = new System.Drawing.Size(805, 505);
+			this._mainToolStripContainer.ContentPanel.Size = new System.Drawing.Size(805, 481);
 			this._mainToolStripContainer.Dock = System.Windows.Forms.DockStyle.Fill;
 			// 
 			// _mainToolStripContainer.LeftToolStripPanel
@@ -84,6 +93,7 @@
 			// 
 			// _mainToolStripContainer.TopToolStripPanel
 			// 
+			this._mainToolStripContainer.TopToolStripPanel.Controls.Add(this._mainMenuStrip);
 			this._mainToolStripContainer.TopToolStripPanel.Controls.Add(this._mainToolStrip);
 			// 
 			// _mainStatusStrip
@@ -117,7 +127,7 @@
 			this._worldView.ForeColor = System.Drawing.Color.Blue;
 			this._worldView.Location = new System.Drawing.Point(0, 0);
 			this._worldView.Name = "_worldView";
-			this._worldView.Size = new System.Drawing.Size(805, 505);
+			this._worldView.Size = new System.Drawing.Size(805, 481);
 			this._worldView.TabIndex = 4;
 			this._worldView.Advanced += new System.EventHandler<GameOfLife.Desktop.WorldArgs>(this.WorldView_Advanced);
 			this._worldView.CellSizeChanged += new System.EventHandler(this.WorldView_CellSizeChanged);
@@ -166,6 +176,54 @@
 			this._diedToolStripLabel.Text = "Died: 0";
 			this._diedToolStripLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
+			// _mainMenuStrip
+			// 
+			this._mainMenuStrip.Dock = System.Windows.Forms.DockStyle.None;
+			this._mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+			this._mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+			this._mainMenuStrip.Name = "_mainMenuStrip";
+			this._mainMenuStrip.Size = new System.Drawing.Size(885, 24);
+			this._mainMenuStrip.TabIndex = 1;
+			this._mainMenuStrip.Text = "menuStrip1";
+			// 
+			// fileToolStripMenuItem
+			// 
+			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._loadToolStripMenuItem,
+            this._saveToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this._exitToolStripMenuItem});
+			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+			this.fileToolStripMenuItem.Text = "&File";
+			// 
+			// _loadToolStripMenuItem
+			// 
+			this._loadToolStripMenuItem.Name = "_loadToolStripMenuItem";
+			this._loadToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+			this._loadToolStripMenuItem.Text = "&Load...";
+			this._loadToolStripMenuItem.Click += new System.EventHandler(this.LoadWorld_Click);
+			// 
+			// _saveToolStripMenuItem
+			// 
+			this._saveToolStripMenuItem.Name = "_saveToolStripMenuItem";
+			this._saveToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+			this._saveToolStripMenuItem.Text = "&Save...";
+			this._saveToolStripMenuItem.Click += new System.EventHandler(this.SaveWorld_Click);
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(106, 6);
+			// 
+			// _exitToolStripMenuItem
+			// 
+			this._exitToolStripMenuItem.Name = "_exitToolStripMenuItem";
+			this._exitToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+			this._exitToolStripMenuItem.Text = "&Exit";
+			this._exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+			// 
 			// _mainToolStrip
 			// 
 			this._mainToolStrip.Dock = System.Windows.Forms.DockStyle.None;
@@ -178,7 +236,7 @@
             this._speedToolStripComboBox,
             this.toolStripSeparator2,
             this._zoomToolStripComboBox});
-			this._mainToolStrip.Location = new System.Drawing.Point(3, 0);
+			this._mainToolStrip.Location = new System.Drawing.Point(3, 24);
 			this._mainToolStrip.Name = "_mainToolStrip";
 			this._mainToolStrip.Size = new System.Drawing.Size(260, 25);
 			this._mainToolStrip.TabIndex = 0;
@@ -254,12 +312,23 @@
 			this._zoomToolStripComboBox.ToolTipText = "Zoom factor";
 			this._zoomToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.ZoomToolStripComboBox_SelectedIndexChanged);
 			// 
+			// _openWorldFileDialog
+			// 
+			this._openWorldFileDialog.DefaultExt = "txt";
+			this._openWorldFileDialog.Filter = "World files|*.txt|All files|*.*";
+			// 
+			// _saveWorldFileDialog
+			// 
+			this._saveWorldFileDialog.DefaultExt = "txt";
+			this._saveWorldFileDialog.Filter = "World files|*.txt|All files|*.*";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(885, 552);
 			this.Controls.Add(this._mainToolStripContainer);
+			this.MainMenuStrip = this._mainMenuStrip;
 			this.Name = "MainForm";
 			this.Text = "Game of Life";
 			this._mainToolStripContainer.BottomToolStripPanel.ResumeLayout(false);
@@ -274,6 +343,8 @@
 			this._mainStatusStrip.PerformLayout();
 			this._statisticsToolStrip.ResumeLayout(false);
 			this._statisticsToolStrip.PerformLayout();
+			this._mainMenuStrip.ResumeLayout(false);
+			this._mainMenuStrip.PerformLayout();
 			this._mainToolStrip.ResumeLayout(false);
 			this._mainToolStrip.PerformLayout();
 			this.ResumeLayout(false);
@@ -302,6 +373,14 @@
 		private System.Windows.Forms.ToolStripComboBox _speedToolStripComboBox;
 		private System.Windows.Forms.ToolStripComboBox _zoomToolStripComboBox;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+		private System.Windows.Forms.MenuStrip _mainMenuStrip;
+		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem _exitToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem _loadToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem _saveToolStripMenuItem;
+		private System.Windows.Forms.OpenFileDialog _openWorldFileDialog;
+		private System.Windows.Forms.SaveFileDialog _saveWorldFileDialog;
 	}
 }
 

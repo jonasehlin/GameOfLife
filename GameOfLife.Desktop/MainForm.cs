@@ -109,5 +109,26 @@ namespace GameOfLife.Desktop
 			// TODO: Disconnect event handler for Zoom selected...
 			_zoomToolStripComboBox.ComboBox.Text = _worldView.CellSize.ToString("0.#");
 		}
+
+		private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		private void LoadWorld_Click(object sender, EventArgs e)
+		{
+			if (_openWorldFileDialog.ShowDialog() != DialogResult.OK)
+				return;
+
+			_worldView.LoadFromFile(_openWorldFileDialog.FileName);
+		}
+
+		private void SaveWorld_Click(object sender, EventArgs e)
+		{
+			if (_saveWorldFileDialog.ShowDialog() != DialogResult.OK)
+				return;
+
+			_worldView.SaveToFile(_saveWorldFileDialog.FileName);
+		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using GameOfLife.Engine;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace GameOfLife.Desktop
@@ -87,6 +88,22 @@ namespace GameOfLife.Desktop
 			_world.Reset();
 			Invalidate();
 			OnAdvanced(new GenerationStatistics(0, 0));
+		}
+
+		public void LoadFromFile(string filePath)
+		{
+			_world.Reset();
+			Invalidate();
+			_world.Load(File.ReadLines(filePath));
+			OnAdvanced(new GenerationStatistics(0, 0));
+		}
+
+		public void SaveToFile(string filePath)
+		{
+			using (var writer = new StreamWriter(filePath))
+			{
+				_world.Save(writer);
+			}
 		}
 
 		public void SetTimerInterval(int interval)
