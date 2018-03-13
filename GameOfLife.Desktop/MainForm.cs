@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameOfLife.Engine;
+using System;
 using System.Windows.Forms;
 
 namespace GameOfLife.Desktop
@@ -32,6 +33,8 @@ namespace GameOfLife.Desktop
 
 			_zoomToolStripComboBox.ComboBox.DataSource = _zoomFactors;
 			_zoomToolStripComboBox.ComboBox.SelectedIndex = 2;
+
+			_worldView.CellHover += WorldView_CellHover;
 		}
 
 		private void Play_Click(object sender, EventArgs e)
@@ -129,6 +132,11 @@ namespace GameOfLife.Desktop
 		{
 			// TODO: Disconnect event handler for Zoom selected...
 			_zoomToolStripComboBox.ComboBox.Text = _worldView.CellSize.ToString("0.#");
+		}
+
+		private void WorldView_CellHover(object sender, ValueEventArgs<Coordinate> e)
+		{
+			_cellHoverToolStripStatusLabel.Text = $"{e.Value.X}, {e.Value.Y}";
 		}
 	}
 }

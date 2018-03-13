@@ -58,6 +58,8 @@ namespace GameOfLife.Desktop
 
 		public event EventHandler CellSizeChanged;
 
+		public event EventHandler<ValueEventArgs<Coordinate>> CellHover;
+
 		public WorldView()
 		{
 			InitializeComponent();
@@ -129,6 +131,11 @@ namespace GameOfLife.Desktop
 		protected void OnCellSizeChanged()
 		{
 			CellSizeChanged?.Invoke(this, EventArgs.Empty);
+		}
+
+		protected void OnCellHover(Coordinate position)
+		{
+			CellHover?.Invoke(this, new ValueEventArgs<Coordinate>(position));
 		}
 
 		protected override void OnPaint(PaintEventArgs pe)
@@ -218,6 +225,8 @@ namespace GameOfLife.Desktop
 			{
 				MouseMoveView(e.Location);
 			}
+
+			OnCellHover(ToWorldCoordinate(e.Location));
 		}
 
 		private void WorldView_MouseUp(object sender, MouseEventArgs e)

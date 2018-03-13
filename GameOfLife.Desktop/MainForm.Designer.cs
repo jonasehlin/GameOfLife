@@ -46,6 +46,11 @@
 			this._saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
 			this._exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.controlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this._playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this._stepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this._pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this._clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this._mainToolStrip = new System.Windows.Forms.ToolStrip();
 			this._playToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this._stepToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -57,11 +62,8 @@
 			this._zoomToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
 			this._openWorldFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this._saveWorldFileDialog = new System.Windows.Forms.SaveFileDialog();
-			this.controlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this._playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this._pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this._stepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this._clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this._cellHoverToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this._springToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this._mainToolStripContainer.BottomToolStripPanel.SuspendLayout();
 			this._mainToolStripContainer.ContentPanel.SuspendLayout();
 			this._mainToolStripContainer.LeftToolStripPanel.SuspendLayout();
@@ -106,7 +108,9 @@
 			this._mainStatusStrip.Dock = System.Windows.Forms.DockStyle.None;
 			this._mainStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._mainStripStatusLabel,
-            this._mainToolStripStatusLabel});
+            this._mainToolStripStatusLabel,
+            this._springToolStripStatusLabel,
+            this._cellHoverToolStripStatusLabel});
 			this._mainStatusStrip.Location = new System.Drawing.Point(0, 0);
 			this._mainStatusStrip.Name = "_mainStatusStrip";
 			this._mainStatusStrip.Size = new System.Drawing.Size(885, 22);
@@ -207,28 +211,67 @@
 			// _loadToolStripMenuItem
 			// 
 			this._loadToolStripMenuItem.Name = "_loadToolStripMenuItem";
-			this._loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this._loadToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
 			this._loadToolStripMenuItem.Text = "&Load...";
 			this._loadToolStripMenuItem.Click += new System.EventHandler(this.LoadWorld_Click);
 			// 
 			// _saveToolStripMenuItem
 			// 
 			this._saveToolStripMenuItem.Name = "_saveToolStripMenuItem";
-			this._saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this._saveToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
 			this._saveToolStripMenuItem.Text = "&Save...";
 			this._saveToolStripMenuItem.Click += new System.EventHandler(this.SaveWorld_Click);
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(106, 6);
 			// 
 			// _exitToolStripMenuItem
 			// 
 			this._exitToolStripMenuItem.Name = "_exitToolStripMenuItem";
-			this._exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this._exitToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
 			this._exitToolStripMenuItem.Text = "&Exit";
 			this._exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+			// 
+			// controlToolStripMenuItem
+			// 
+			this.controlToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._playToolStripMenuItem,
+            this._stepToolStripMenuItem,
+            this._pauseToolStripMenuItem,
+            this._clearToolStripMenuItem});
+			this.controlToolStripMenuItem.Name = "controlToolStripMenuItem";
+			this.controlToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+			this.controlToolStripMenuItem.Text = "&Control";
+			// 
+			// _playToolStripMenuItem
+			// 
+			this._playToolStripMenuItem.Name = "_playToolStripMenuItem";
+			this._playToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+			this._playToolStripMenuItem.Text = "&Play";
+			this._playToolStripMenuItem.Click += new System.EventHandler(this.Play_Click);
+			// 
+			// _stepToolStripMenuItem
+			// 
+			this._stepToolStripMenuItem.Name = "_stepToolStripMenuItem";
+			this._stepToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+			this._stepToolStripMenuItem.Text = "&Step";
+			this._stepToolStripMenuItem.Click += new System.EventHandler(this.Step_Click);
+			// 
+			// _pauseToolStripMenuItem
+			// 
+			this._pauseToolStripMenuItem.Name = "_pauseToolStripMenuItem";
+			this._pauseToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+			this._pauseToolStripMenuItem.Text = "P&ause";
+			this._pauseToolStripMenuItem.Click += new System.EventHandler(this.Pause_Click);
+			// 
+			// _clearToolStripMenuItem
+			// 
+			this._clearToolStripMenuItem.Name = "_clearToolStripMenuItem";
+			this._clearToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+			this._clearToolStripMenuItem.Text = "&Clear";
+			this._clearToolStripMenuItem.Click += new System.EventHandler(this.Clear_Click);
 			// 
 			// _mainToolStrip
 			// 
@@ -328,44 +371,17 @@
 			this._saveWorldFileDialog.DefaultExt = "txt";
 			this._saveWorldFileDialog.Filter = "World files|*.txt|All files|*.*";
 			// 
-			// controlToolStripMenuItem
+			// _cellHoverToolStripStatusLabel
 			// 
-			this.controlToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._playToolStripMenuItem,
-            this._stepToolStripMenuItem,
-            this._pauseToolStripMenuItem,
-            this._clearToolStripMenuItem});
-			this.controlToolStripMenuItem.Name = "controlToolStripMenuItem";
-			this.controlToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-			this.controlToolStripMenuItem.Text = "&Control";
+			this._cellHoverToolStripStatusLabel.Name = "_cellHoverToolStripStatusLabel";
+			this._cellHoverToolStripStatusLabel.Size = new System.Drawing.Size(25, 17);
+			this._cellHoverToolStripStatusLabel.Text = "0, 0";
 			// 
-			// _playToolStripMenuItem
+			// _springToolStripStatusLabel
 			// 
-			this._playToolStripMenuItem.Name = "_playToolStripMenuItem";
-			this._playToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this._playToolStripMenuItem.Text = "&Play";
-			this._playToolStripMenuItem.Click += new System.EventHandler(this.Play_Click);
-			// 
-			// _pauseToolStripMenuItem
-			// 
-			this._pauseToolStripMenuItem.Name = "_pauseToolStripMenuItem";
-			this._pauseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this._pauseToolStripMenuItem.Text = "P&ause";
-			this._pauseToolStripMenuItem.Click += new System.EventHandler(this.Pause_Click);
-			// 
-			// _stepToolStripMenuItem
-			// 
-			this._stepToolStripMenuItem.Name = "_stepToolStripMenuItem";
-			this._stepToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this._stepToolStripMenuItem.Text = "&Step";
-			this._stepToolStripMenuItem.Click += new System.EventHandler(this.Step_Click);
-			// 
-			// _clearToolStripMenuItem
-			// 
-			this._clearToolStripMenuItem.Name = "_clearToolStripMenuItem";
-			this._clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this._clearToolStripMenuItem.Text = "&Clear";
-			this._clearToolStripMenuItem.Click += new System.EventHandler(this.Clear_Click);
+			this._springToolStripStatusLabel.Name = "_springToolStripStatusLabel";
+			this._springToolStripStatusLabel.Size = new System.Drawing.Size(775, 17);
+			this._springToolStripStatusLabel.Spring = true;
 			// 
 			// MainForm
 			// 
@@ -431,6 +447,8 @@
 		private System.Windows.Forms.ToolStripMenuItem _stepToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem _pauseToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem _clearToolStripMenuItem;
+		private System.Windows.Forms.ToolStripStatusLabel _cellHoverToolStripStatusLabel;
+		private System.Windows.Forms.ToolStripStatusLabel _springToolStripStatusLabel;
 	}
 }
 
