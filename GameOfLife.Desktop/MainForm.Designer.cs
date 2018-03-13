@@ -47,6 +47,7 @@
 			this._resetToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this._speedToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this._zoomToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
 			this._mainToolStripContainer.BottomToolStripPanel.SuspendLayout();
 			this._mainToolStripContainer.ContentPanel.SuspendLayout();
@@ -175,10 +176,11 @@
             this._resetToolStripButton,
             this.toolStripSeparator1,
             this._speedToolStripComboBox,
+            this.toolStripSeparator2,
             this._zoomToolStripComboBox});
 			this._mainToolStrip.Location = new System.Drawing.Point(3, 0);
 			this._mainToolStrip.Name = "_mainToolStrip";
-			this._mainToolStrip.Size = new System.Drawing.Size(285, 25);
+			this._mainToolStrip.Size = new System.Drawing.Size(260, 25);
 			this._mainToolStrip.TabIndex = 0;
 			// 
 			// _playToolStripButton
@@ -239,6 +241,11 @@
 			this._speedToolStripComboBox.ToolTipText = "Speed of simulation";
 			this._speedToolStripComboBox.SelectedIndexChanged += new System.EventHandler(this.SpeedToolStripComboBox_SelectedIndexChanged);
 			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+			// 
 			// _zoomToolStripComboBox
 			// 
 			this._zoomToolStripComboBox.AutoSize = false;
@@ -294,6 +301,7 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripComboBox _speedToolStripComboBox;
 		private System.Windows.Forms.ToolStripComboBox _zoomToolStripComboBox;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 	}
 }
 
