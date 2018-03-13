@@ -37,12 +37,17 @@ namespace GameOfLife.Desktop
 			_worldView.CellHover += WorldView_CellHover;
 		}
 
+		private void UpdateMenuItems(bool running)
+		{
+			_playToolStripMenuItem.Enabled = _playToolStripButton.Enabled = !running;
+			_stepToolStripMenuItem.Enabled = _stepToolStripButton.Enabled = !running;
+			_pauseToolStripMenuItem.Enabled = _pauseToolStripButton.Enabled = running;
+		}
+
 		private void Play_Click(object sender, EventArgs e)
 		{
 			_worldView.Start();
-			_playToolStripButton.Enabled = false;
-			_stepToolStripButton.Enabled = false;
-			_pauseToolStripButton.Enabled = true;
+			UpdateMenuItems(true);
 		}
 
 		private void Step_Click(object sender, EventArgs e)
@@ -53,18 +58,14 @@ namespace GameOfLife.Desktop
 		private void Pause_Click(object sender, EventArgs e)
 		{
 			_worldView.Stop();
-			_playToolStripButton.Enabled = true;
-			_stepToolStripButton.Enabled = true;
-			_pauseToolStripButton.Enabled = false;
+			UpdateMenuItems(false);
 		}
 
 		private void Clear_Click(object sender, EventArgs e)
 		{
 			_worldView.Stop();
 			_worldView.Clear();
-			_playToolStripButton.Enabled = true;
-			_stepToolStripButton.Enabled = true;
-			_pauseToolStripButton.Enabled = false;
+			UpdateMenuItems(false);
 		}
 
 		private void LoadWorld_Click(object sender, EventArgs e)

@@ -34,7 +34,8 @@
 			this._mainStatusStrip = new System.Windows.Forms.StatusStrip();
 			this._mainStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this._mainToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-			this._worldView = new GameOfLife.Desktop.WorldView();
+			this._springToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this._cellHoverToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this._statisticsToolStrip = new System.Windows.Forms.ToolStrip();
 			this._ageToolStripLabel = new System.Windows.Forms.ToolStripLabel();
 			this._totalCellsToolStripLabel = new System.Windows.Forms.ToolStripLabel();
@@ -62,8 +63,7 @@
 			this._zoomToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
 			this._openWorldFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this._saveWorldFileDialog = new System.Windows.Forms.SaveFileDialog();
-			this._cellHoverToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-			this._springToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this._worldView = new GameOfLife.Desktop.WorldView();
 			this._mainToolStripContainer.BottomToolStripPanel.SuspendLayout();
 			this._mainToolStripContainer.ContentPanel.SuspendLayout();
 			this._mainToolStripContainer.LeftToolStripPanel.SuspendLayout();
@@ -127,19 +127,17 @@
 			this._mainToolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
 			this._mainToolStripStatusLabel.Text = "Stable";
 			// 
-			// _worldView
+			// _springToolStripStatusLabel
 			// 
-			this._worldView.BackColor = System.Drawing.SystemColors.Window;
-			this._worldView.CellSize = 10F;
-			this._worldView.Cursor = System.Windows.Forms.Cursors.Cross;
-			this._worldView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this._worldView.ForeColor = System.Drawing.Color.Blue;
-			this._worldView.Location = new System.Drawing.Point(0, 0);
-			this._worldView.Name = "_worldView";
-			this._worldView.Size = new System.Drawing.Size(805, 481);
-			this._worldView.TabIndex = 4;
-			this._worldView.Advanced += new System.EventHandler<GameOfLife.Desktop.WorldArgs>(this.WorldView_Advanced);
-			this._worldView.CellSizeChanged += new System.EventHandler(this.WorldView_CellSizeChanged);
+			this._springToolStripStatusLabel.Name = "_springToolStripStatusLabel";
+			this._springToolStripStatusLabel.Size = new System.Drawing.Size(806, 17);
+			this._springToolStripStatusLabel.Spring = true;
+			// 
+			// _cellHoverToolStripStatusLabel
+			// 
+			this._cellHoverToolStripStatusLabel.Name = "_cellHoverToolStripStatusLabel";
+			this._cellHoverToolStripStatusLabel.Size = new System.Drawing.Size(25, 17);
+			this._cellHoverToolStripStatusLabel.Text = "0, 0";
 			// 
 			// _statisticsToolStrip
 			// 
@@ -211,26 +209,26 @@
 			// _loadToolStripMenuItem
 			// 
 			this._loadToolStripMenuItem.Name = "_loadToolStripMenuItem";
-			this._loadToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+			this._loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this._loadToolStripMenuItem.Text = "&Load...";
 			this._loadToolStripMenuItem.Click += new System.EventHandler(this.LoadWorld_Click);
 			// 
 			// _saveToolStripMenuItem
 			// 
 			this._saveToolStripMenuItem.Name = "_saveToolStripMenuItem";
-			this._saveToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+			this._saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this._saveToolStripMenuItem.Text = "&Save...";
 			this._saveToolStripMenuItem.Click += new System.EventHandler(this.SaveWorld_Click);
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(106, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
 			// 
 			// _exitToolStripMenuItem
 			// 
 			this._exitToolStripMenuItem.Name = "_exitToolStripMenuItem";
-			this._exitToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+			this._exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this._exitToolStripMenuItem.Text = "&Exit";
 			this._exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
 			// 
@@ -248,28 +246,29 @@
 			// _playToolStripMenuItem
 			// 
 			this._playToolStripMenuItem.Name = "_playToolStripMenuItem";
-			this._playToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+			this._playToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this._playToolStripMenuItem.Text = "&Play";
 			this._playToolStripMenuItem.Click += new System.EventHandler(this.Play_Click);
 			// 
 			// _stepToolStripMenuItem
 			// 
 			this._stepToolStripMenuItem.Name = "_stepToolStripMenuItem";
-			this._stepToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+			this._stepToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this._stepToolStripMenuItem.Text = "&Step";
 			this._stepToolStripMenuItem.Click += new System.EventHandler(this.Step_Click);
 			// 
 			// _pauseToolStripMenuItem
 			// 
+			this._pauseToolStripMenuItem.Enabled = false;
 			this._pauseToolStripMenuItem.Name = "_pauseToolStripMenuItem";
-			this._pauseToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+			this._pauseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this._pauseToolStripMenuItem.Text = "P&ause";
 			this._pauseToolStripMenuItem.Click += new System.EventHandler(this.Pause_Click);
 			// 
 			// _clearToolStripMenuItem
 			// 
 			this._clearToolStripMenuItem.Name = "_clearToolStripMenuItem";
-			this._clearToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+			this._clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this._clearToolStripMenuItem.Text = "&Clear";
 			this._clearToolStripMenuItem.Click += new System.EventHandler(this.Clear_Click);
 			// 
@@ -371,17 +370,19 @@
 			this._saveWorldFileDialog.DefaultExt = "txt";
 			this._saveWorldFileDialog.Filter = "World files|*.txt|All files|*.*";
 			// 
-			// _cellHoverToolStripStatusLabel
+			// _worldView
 			// 
-			this._cellHoverToolStripStatusLabel.Name = "_cellHoverToolStripStatusLabel";
-			this._cellHoverToolStripStatusLabel.Size = new System.Drawing.Size(25, 17);
-			this._cellHoverToolStripStatusLabel.Text = "0, 0";
-			// 
-			// _springToolStripStatusLabel
-			// 
-			this._springToolStripStatusLabel.Name = "_springToolStripStatusLabel";
-			this._springToolStripStatusLabel.Size = new System.Drawing.Size(775, 17);
-			this._springToolStripStatusLabel.Spring = true;
+			this._worldView.BackColor = System.Drawing.SystemColors.Window;
+			this._worldView.CellSize = 10F;
+			this._worldView.Cursor = System.Windows.Forms.Cursors.Cross;
+			this._worldView.Dock = System.Windows.Forms.DockStyle.Fill;
+			this._worldView.ForeColor = System.Drawing.Color.Blue;
+			this._worldView.Location = new System.Drawing.Point(0, 0);
+			this._worldView.Name = "_worldView";
+			this._worldView.Size = new System.Drawing.Size(805, 481);
+			this._worldView.TabIndex = 4;
+			this._worldView.Advanced += new System.EventHandler<GameOfLife.Desktop.WorldArgs>(this.WorldView_Advanced);
+			this._worldView.CellSizeChanged += new System.EventHandler(this.WorldView_CellSizeChanged);
 			// 
 			// MainForm
 			// 
