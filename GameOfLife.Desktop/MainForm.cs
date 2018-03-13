@@ -34,7 +34,7 @@ namespace GameOfLife.Desktop
 			_zoomToolStripComboBox.ComboBox.SelectedIndex = 2;
 		}
 
-		private void PlayButton_Click(object sender, EventArgs e)
+		private void Play_Click(object sender, EventArgs e)
 		{
 			_worldView.Start();
 			_playToolStripButton.Enabled = false;
@@ -42,12 +42,12 @@ namespace GameOfLife.Desktop
 			_pauseToolStripButton.Enabled = true;
 		}
 
-		private void StepButton_Click(object sender, EventArgs e)
+		private void Step_Click(object sender, EventArgs e)
 		{
 			_worldView.Step();
 		}
 
-		private void PauseButton_Click(object sender, EventArgs e)
+		private void Pause_Click(object sender, EventArgs e)
 		{
 			_worldView.Stop();
 			_playToolStripButton.Enabled = true;
@@ -55,13 +55,34 @@ namespace GameOfLife.Desktop
 			_pauseToolStripButton.Enabled = false;
 		}
 
-		private void ClearButton_Click(object sender, EventArgs e)
+		private void Clear_Click(object sender, EventArgs e)
 		{
 			_worldView.Stop();
 			_worldView.Clear();
 			_playToolStripButton.Enabled = true;
 			_stepToolStripButton.Enabled = true;
 			_pauseToolStripButton.Enabled = false;
+		}
+
+		private void LoadWorld_Click(object sender, EventArgs e)
+		{
+			if (_openWorldFileDialog.ShowDialog() != DialogResult.OK)
+				return;
+
+			_worldView.LoadFromFile(_openWorldFileDialog.FileName);
+		}
+
+		private void SaveWorld_Click(object sender, EventArgs e)
+		{
+			if (_saveWorldFileDialog.ShowDialog() != DialogResult.OK)
+				return;
+
+			_worldView.SaveToFile(_saveWorldFileDialog.FileName);
+		}
+
+		private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Close();
 		}
 
 		private void WorldView_Advanced(object sender, WorldArgs e)
@@ -108,27 +129,6 @@ namespace GameOfLife.Desktop
 		{
 			// TODO: Disconnect event handler for Zoom selected...
 			_zoomToolStripComboBox.ComboBox.Text = _worldView.CellSize.ToString("0.#");
-		}
-
-		private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Close();
-		}
-
-		private void LoadWorld_Click(object sender, EventArgs e)
-		{
-			if (_openWorldFileDialog.ShowDialog() != DialogResult.OK)
-				return;
-
-			_worldView.LoadFromFile(_openWorldFileDialog.FileName);
-		}
-
-		private void SaveWorld_Click(object sender, EventArgs e)
-		{
-			if (_saveWorldFileDialog.ShowDialog() != DialogResult.OK)
-				return;
-
-			_worldView.SaveToFile(_saveWorldFileDialog.FileName);
 		}
 	}
 }

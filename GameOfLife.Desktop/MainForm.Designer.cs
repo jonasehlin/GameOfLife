@@ -57,6 +57,11 @@
 			this._zoomToolStripComboBox = new System.Windows.Forms.ToolStripComboBox();
 			this._openWorldFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this._saveWorldFileDialog = new System.Windows.Forms.SaveFileDialog();
+			this.controlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this._playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this._pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this._stepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this._clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this._mainToolStripContainer.BottomToolStripPanel.SuspendLayout();
 			this._mainToolStripContainer.ContentPanel.SuspendLayout();
 			this._mainToolStripContainer.LeftToolStripPanel.SuspendLayout();
@@ -180,7 +185,8 @@
 			// 
 			this._mainMenuStrip.Dock = System.Windows.Forms.DockStyle.None;
 			this._mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.controlToolStripMenuItem});
 			this._mainMenuStrip.Location = new System.Drawing.Point(0, 0);
 			this._mainMenuStrip.Name = "_mainMenuStrip";
 			this._mainMenuStrip.Size = new System.Drawing.Size(885, 24);
@@ -201,26 +207,26 @@
 			// _loadToolStripMenuItem
 			// 
 			this._loadToolStripMenuItem.Name = "_loadToolStripMenuItem";
-			this._loadToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+			this._loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this._loadToolStripMenuItem.Text = "&Load...";
 			this._loadToolStripMenuItem.Click += new System.EventHandler(this.LoadWorld_Click);
 			// 
 			// _saveToolStripMenuItem
 			// 
 			this._saveToolStripMenuItem.Name = "_saveToolStripMenuItem";
-			this._saveToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+			this._saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this._saveToolStripMenuItem.Text = "&Save...";
 			this._saveToolStripMenuItem.Click += new System.EventHandler(this.SaveWorld_Click);
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(106, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
 			// 
 			// _exitToolStripMenuItem
 			// 
 			this._exitToolStripMenuItem.Name = "_exitToolStripMenuItem";
-			this._exitToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+			this._exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this._exitToolStripMenuItem.Text = "&Exit";
 			this._exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
 			// 
@@ -249,7 +255,7 @@
 			this._playToolStripButton.Size = new System.Drawing.Size(23, 22);
 			this._playToolStripButton.Text = "▶";
 			this._playToolStripButton.ToolTipText = "Start simulation";
-			this._playToolStripButton.Click += new System.EventHandler(this.PlayButton_Click);
+			this._playToolStripButton.Click += new System.EventHandler(this.Play_Click);
 			// 
 			// _stepToolStripButton
 			// 
@@ -259,7 +265,7 @@
 			this._stepToolStripButton.Size = new System.Drawing.Size(23, 22);
 			this._stepToolStripButton.Text = "⏯";
 			this._stepToolStripButton.ToolTipText = "Advance one generation";
-			this._stepToolStripButton.Click += new System.EventHandler(this.StepButton_Click);
+			this._stepToolStripButton.Click += new System.EventHandler(this.Step_Click);
 			// 
 			// _pauseToolStripButton
 			// 
@@ -270,7 +276,7 @@
 			this._pauseToolStripButton.Size = new System.Drawing.Size(23, 22);
 			this._pauseToolStripButton.Text = "❚❚";
 			this._pauseToolStripButton.ToolTipText = "Pause simulation";
-			this._pauseToolStripButton.Click += new System.EventHandler(this.PauseButton_Click);
+			this._pauseToolStripButton.Click += new System.EventHandler(this.Pause_Click);
 			// 
 			// _resetToolStripButton
 			// 
@@ -280,7 +286,7 @@
 			this._resetToolStripButton.Size = new System.Drawing.Size(23, 22);
 			this._resetToolStripButton.Text = "X";
 			this._resetToolStripButton.ToolTipText = "Remove all cells and stop simulation";
-			this._resetToolStripButton.Click += new System.EventHandler(this.ClearButton_Click);
+			this._resetToolStripButton.Click += new System.EventHandler(this.Clear_Click);
 			// 
 			// toolStripSeparator1
 			// 
@@ -321,6 +327,45 @@
 			// 
 			this._saveWorldFileDialog.DefaultExt = "txt";
 			this._saveWorldFileDialog.Filter = "World files|*.txt|All files|*.*";
+			// 
+			// controlToolStripMenuItem
+			// 
+			this.controlToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._playToolStripMenuItem,
+            this._stepToolStripMenuItem,
+            this._pauseToolStripMenuItem,
+            this._clearToolStripMenuItem});
+			this.controlToolStripMenuItem.Name = "controlToolStripMenuItem";
+			this.controlToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+			this.controlToolStripMenuItem.Text = "&Control";
+			// 
+			// _playToolStripMenuItem
+			// 
+			this._playToolStripMenuItem.Name = "_playToolStripMenuItem";
+			this._playToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this._playToolStripMenuItem.Text = "&Play";
+			this._playToolStripMenuItem.Click += new System.EventHandler(this.Play_Click);
+			// 
+			// _pauseToolStripMenuItem
+			// 
+			this._pauseToolStripMenuItem.Name = "_pauseToolStripMenuItem";
+			this._pauseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this._pauseToolStripMenuItem.Text = "P&ause";
+			this._pauseToolStripMenuItem.Click += new System.EventHandler(this.Pause_Click);
+			// 
+			// _stepToolStripMenuItem
+			// 
+			this._stepToolStripMenuItem.Name = "_stepToolStripMenuItem";
+			this._stepToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this._stepToolStripMenuItem.Text = "&Step";
+			this._stepToolStripMenuItem.Click += new System.EventHandler(this.Step_Click);
+			// 
+			// _clearToolStripMenuItem
+			// 
+			this._clearToolStripMenuItem.Name = "_clearToolStripMenuItem";
+			this._clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this._clearToolStripMenuItem.Text = "&Clear";
+			this._clearToolStripMenuItem.Click += new System.EventHandler(this.Clear_Click);
 			// 
 			// MainForm
 			// 
@@ -381,6 +426,11 @@
 		private System.Windows.Forms.ToolStripMenuItem _saveToolStripMenuItem;
 		private System.Windows.Forms.OpenFileDialog _openWorldFileDialog;
 		private System.Windows.Forms.SaveFileDialog _saveWorldFileDialog;
+		private System.Windows.Forms.ToolStripMenuItem controlToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem _playToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem _stepToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem _pauseToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem _clearToolStripMenuItem;
 	}
 }
 
